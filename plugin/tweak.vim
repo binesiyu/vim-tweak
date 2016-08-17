@@ -60,11 +60,21 @@ let mapleader = " "
 " {
 "
 
-" smart tab/buffer switching. nice integrated with airline
 " NOTE: this is wierd, the follow ing command is invalid:
 " nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()==3))||(type(tabpagebuflist(tabpagenr()-1))==3)) ? ":tabn\<CR>"  : ":bn\<CR>" )
-nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()+1))+type(tabpagebuflist(tabpagenr()-1))>0) ? ":tabn\<CR>"  : ":bn\<CR>" )
-nnoremap <expr> <S-h> ( (type(tabpagebuflist(tabpagenr()-1))+type(tabpagebuflist(tabpagenr()+1))>0) ? ":tabp\<CR>"  : ":bp\<CR>" )
+nnoremap <Leader>1 :buffer 1<CR>
+nnoremap <Leader>2 :buffer 2<CR>
+nnoremap <Leader>3 :buffer 3<CR>
+nnoremap <Leader>4 :buffer 4<CR>
+nnoremap <Leader>5 :buffer 5<CR>
+nnoremap <Leader>6 :buffer 6<CR>
+nnoremap <Leader>7 :buffer 7<CR>
+nnoremap <Leader>8 :buffer 8<CR>
+nnoremap <Leader>9 :buffer 9<CR>
+nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
+nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
+nnoremap <Leader>b :ls<CR>:buffer<Space>
+" nnoremap <expr> <Leader>b tweak#wtb_switch#key_bufer()
 " Avoid message "E37: No write since last change (add ! to override)" when try
 " to switch buffer
 
