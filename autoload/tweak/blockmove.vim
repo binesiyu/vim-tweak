@@ -1,12 +1,9 @@
-""
-" Optimize the vim's '{' and '}' key for lines consist of blank characters
-"
 
+" usage:
+" noremap <expr>{ tweak#blockmove#up_key()
+" noremap <expr>} tweak#blockmove#down_key()
 
-noremap <expr>{ <SID>TestUp()
-noremap <expr>} <SID>TestDown()
-
-function! s:TestUp()
+function! tweak#blockmove#up_key()
 	let l:firstVisableLine = line('w0')
 	let l:lastVisableLine  = line('w$')
 	let l:l = line(".")
@@ -37,7 +34,7 @@ function! s:TestUp()
 	return (l:l) . "G" . l:zz_Key . "$"
 endfunction
 
-function! s:TestDown()
+function! tweak#blockmove#down_key()
 	let l:firstVisableLine = line('w0')
 	let l:lastVisableLine = line('w$')
 	let l:l = line(".")

@@ -86,6 +86,9 @@ nnoremap <C-l>  <C-w>l
 nnoremap ]t vatatv
 nnoremap [t vatatov
 
+noremap <expr>{ tweak#blockmove#up_key()
+noremap <expr>} tweak#blockmove#down_key()
+
 nnoremap <expr> <C-u> winheight(0)/3 . '<C-y>'
 nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
 
