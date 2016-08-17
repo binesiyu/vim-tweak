@@ -36,6 +36,16 @@ set noerrorbells
 " http://www.linuxpowertop.org/known.php
 let &guicursor = &guicursor . ",a:blinkon0"
 
+" no mouse interaction, mouse is evil
+set mouse=
+
+" don't split a long line for display
+set nowrap
+
+" line number
+set relativenumber
+set number
+
 "
 " }
 """
@@ -113,15 +123,10 @@ vmap * <Plug>(asterisk-*)
 "   '\c' case insensitive
 nnoremap /  /\c\v
 nnoremap ?  ?\c\v
-" map /   <Plug>(incsearch-forward)\c\v
-" map ?   <Plug>(incsearch-backward)\c\v
 
 " clean last pattern to avoid highlighting
 " :help last-pattern
 nnoremap <ESC><ESC> :let @/ = ""<CR>
-
-" no mouse interaction
-set mouse=
 
 " enable incremental search 
 set incsearch
@@ -166,7 +171,6 @@ autocmd BufReadPost *
 " don't write swapfile on most commonly used directories for NFS mounts or USB sticks
 autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
 
-
 " auto wraping in text files
 " fo+=t enable auto wraping
 " fo+=a enable auto wraping for paragraph
@@ -184,13 +188,6 @@ set foldenable
 set foldmethod=syntax
 set foldlevel=100
 
-" don't split a long line for display
-set nowrap
-
-" line number
-set relativenumber
-set number
-
-
 " }
 """"
+
