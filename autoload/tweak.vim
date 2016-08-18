@@ -192,7 +192,7 @@ func! tweak#bootstrap()
 	" {
 
 	nnoremap <C-s> :w<CR>
-	nnoremap S :w<CR>
+	nnoremap <Leader>s :w<CR>
 
 	set viminfo='100,\"50    	" read/write a .viminfo file, don't store more
 								" than 50 lines of registers
@@ -253,6 +253,7 @@ func! tweak#bootstrap()
 	TweakForPlugin 'christoomey/vim-tmux-navigator' call tweak#vim_tmux_navigator()
 	TweakForPlugin 'simeji/winresizer'      call tweak#winresizer()
 	TweakForPlugin 'Valloric/YouCompleteMe' call tweak#YouCompleteMe()
+	TweakForPlugin 'tpope/vim-surround' call tweak#surround()
 
 endfunc
 
@@ -397,6 +398,7 @@ func! tweak#easymotion()
 	let g:EasyMotion_do_mapping = 0
 	" go to character
 	nmap s <Plug>(easymotion-s)
+	xmap s <Plug>(easymotion-s)
 endfunc
 
 func! tweak#go()
@@ -441,6 +443,15 @@ func! tweak#YouCompleteMe()
 	let g:ycm_semantic_triggers.php =  ['->','::','re![_a-zA-Z]{3,}']
 endfunc
 
+func! tweak#surround()
+	let g:surround_no_mappings = 1
+	" S instead of ys, feels more cons
+	" S instead of s, s is occupied by vim-sneak
+	nmap dS  <Plug>Dsurround
+	nmap cS  <Plug>Csurround
+	nmap  S  <Plug>Ysurround
+	xmap  S  <Plug>VSurround
+endfunc
 
 " ""
 " " Parse and execute vimscript in c/cpp file
