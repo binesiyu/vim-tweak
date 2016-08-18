@@ -113,8 +113,8 @@ func! tweak#bootstrap()
 	nnoremap ]t vatatv
 	nnoremap [t vatatov
 
-	noremap <expr>{ tweak#blockmove#up_key()
-	noremap <expr>} tweak#blockmove#down_key()
+	noremap <expr> { tweak#blockmove#up_key()
+	noremap <expr> } tweak#blockmove#down_key()
 
 	nnoremap <expr> <C-u> winheight(0)/3 . '<C-y>'
 	nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
@@ -208,5 +208,202 @@ func! tweak#bootstrap()
 	" }
 	""""
 
+	call tweak#airline()
+	call tweak#tagbar()
+	call tweak#nerdtree()
+	call tweak#fzf()
+	call tweak#SimpleAutoComplPop()
+	call tweak#solarized()
+	call tweak#syntastic()
+	call tweak#ctrlp()
+	call tweak#easymotion()
+	call tweak#go()
+	call tweak#markdown()
+	call tweak#vim_tmux_navigator()
+	call tweak#winresizer()
+	call tweak#YouCompleteMe()
+
+endfunc
+
+func! tweak#airline()
+	let g:airline#extensions#tabline#buffer_nr_show = 1 
+	let g:airline#extensions#tabline#enabled = 1
+	" let g:airline#extensions#tabline#left_sep = ' '
+	" let g:airline#extensions#tabline#left_alt_sep = '|'
+	set laststatus=2
+	let g:airline#extensions#capslock#enabled = 1
+	"let g:airline_section_b = '%{&expandtab?"et":"noet"}'
+endfunc
+
+func! tweak#tagbar()
+	" The tags are not sorted according to their name
+	let g:tagbar_sort = 0
+	let g:tagbar_type_php  = {
+				\ 'ctagstype' : 'php',
+				\ 'kinds'     : [
+				\ 'i:interfaces',
+				\ 'c:classes',
+				\ 'd:constant definitions',
+				\ 'f:functions',
+				\ 'j:javascript functions:1'
+				\ ]
+				\ }
+endfunc
+
+func! tweak#nerdtree()
+	nnoremap <C-p><C-n> :NERDTreeToggle<CR>
+	nnoremap <C-p>n :NERDTreeToggle<CR>
+	"  close vim if the only window left open is a NERDTree
+	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+endfunc
+
+func! tweak#fzf()
+
+	let g:fzf_command_prefix = 'FZF'
+
+	" fzf files
+	nnoremap <C-f><C-f> :FZF<CR>
+	nnoremap <C-f>f     :FZF<CR>
+	nnoremap <Leader>f  :FZF<CR>
+
+	" MRU
+	nnoremap <C-f><C-m> :FZFHistory<CR>
+	nnoremap <C-f>m     :FZFHistory<CR>
+
+	" Commands
+	nnoremap <C-f><C-c> :FZFCommands<CR>
+	nnoremap <C-f>c     :FZFCommands<CR>
+
+	" Buffers
+	nnoremap <C-f><C-b> :FZFBuffers<CR>
+	nnoremap <C-f>b     :FZFBuffers<CR>
+	nnoremap <C-b>      :FZFBuffers<CR>
+
+	" lines
+	nnoremap <C-f>l  	 :FZFLines<CR>
+	nnoremap <C-f><C-l>  :FZFLines<CR>
+
+	nnoremap <C-f>/  	 :FZFBLines<CR>
+	" vim can't recognize
+	" nnoremap <C-f><C-/>  :FZFLines<CR>
+
+	" commands
+	nnoremap <C-f>:  	 :FZFCommands<CR>
+
+	" fzf ag
+	nnoremap <C-f>a  	 :FZFAg<Space>
+	nnoremap <C-f><C-a>  :FZFAg<Space>
+
+endfunc
+
+
+func! tweak#SimpleAutoComplPop()
+	" disable default behavior for php
+	let g:sacpDefaultFileTypesEnable = { "php":0, "markdown":1, "text":1, "go":0}
+
+	" The omnifunc phpcomplete#Complete is very slow, stop using it!
+	autocmd FileType php call sacp#enableForThisBuffer({ "matches": [
+				\ { '=~': '\$\w\{2,}$'     , 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
+				\ { '=~': '\v[a-zA-Z]{3,}$', 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
+				\ { '=~': '::$'            , 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
+				\ { '=~': '->$'            , 'feedkeys': "\<plug>(sacp_cache_fuzzy_bufferkeyword_complete)"},
+				\ ]
+				\ })
+
+	" 1. variables are all defined in current scope, use keyword from current
+	" buffer for completion
+	" 2. When the '.' is pressed, use smarter omnicomplete `<C-x><C-o>`, this
+	" works well with the vim-go plugin
+	autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
+				\ { '=~': '\v[a-zA-Z]{3}$' , 'feedkeys': "\<Plug>(sacp_cache_fuzzy_bufferkeyword_complete)"} ,
+				\ { '=~': '\.$'            , 'feedkeys': "\<Plug>(sacp_cache_fuzzy_omnicomplete)", "ignoreCompletionMode":1} ,
+				\ ]
+				\ })
+endfunc
+
+func! tweak#solarized()
+	if &t_Co == 256
+		" syntax enable
+		let g:solarized_termcolors=256
+		" set background=dark
+		" colorscheme solarized
+	endif
+endfunc
+
+func! tweak#syntastic()
+	if exists(':SyntasticCheck')
+		set statusline+=%#warningmsg#
+		set statusline+=%{SyntasticStatuslineFlag()}
+		set statusline+=%*
+	endif
+
+	let g:syntastic_always_populate_loc_list = 1
+	let g:syntastic_auto_loc_list = 1
+	let g:syntastic_check_on_open = 0
+	let g:syntastic_check_on_wq = 0
+
+	" working with vim-go
+	let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+	let g:go_list_type = "quickfix"
+	let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+endfunc
+
+func! tweak#ctrlp()
+	" Set no max file limit
+	let g:ctrlp_max_files = 0
+	" Search from current directory instead of project root
+	let g:ctrlp_working_path_mode = 0
+
+	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.o,*.png,*.gif,*.gz
+endfunc
+
+func! tweak#easymotion()
+	" do not use default mapping, I only use the s key
+	let g:EasyMotion_do_mapping = 0
+	" go to character
+	nmap s <Plug>(easymotion-s)
+	nmap S <Plug>(easymotion-overwin-f)
+endfunc
+
+func! tweak#go()
+	" vim-go plugin
+	let g:go_auto_type_info=1
+	" disable go fmt on siave
+	let g:go_fmt_autosave = 0
+	" turn highlighting on
+	let g:go_highlight_functions = 1
+	let g:go_highlight_methods = 1
+	let g:go_highlight_structs = 1
+	let g:go_highlight_operators = 1
+	let g:go_highlight_build_constraints = 1
+	" autocmd FileType go nmap <buffer>  <C-w><C-]> <Plug>(go-def-split)
+	autocmd FileType go nnoremap <buffer> <silent> <C-w><C-]> :<C-u>call go#def#Jump("split")<CR>
+	" autocmd FileType go nnoremap <buffer> <C-w><C-]> :<C-u>call go#def#Jump("split")<CR>
+endfunc
+
+func! tweak#markdown()
+	let g:vim_markdown_initial_foldlevel=100
+endfunc
+
+func! tweak#vim_tmux_navigator()
+	" tmux navigator stuff
+	let g:tmux_navigator_no_mappings = 1
+endfunc
+
+func! tweak#winresizer()
+	let g:winresizer_start_key    = '<C-W><C-W>'
+	let g:winresizer_vert_resize  = 1
+	let g:winresizer_horiz_resize = 1
+endfunc
+
+
+func! tweak#YouCompleteMe()
+	" only enable for php complications
+	let g:ycm_filetype_whitelist = {"vimrc":1,"c":1,"cpp":1,"php":1}
+	""
+	" NOTICE: The  regex is python's syntax
+	" 3 characters to 
+	let g:ycm_semantic_triggers = {}
+	let g:ycm_semantic_triggers.php =  ['->','::','re![_a-zA-Z]{3,}']
 endfunc
 
