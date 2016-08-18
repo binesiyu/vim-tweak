@@ -197,8 +197,9 @@ func! tweak#bootstrap()
 	" {
 
 	nnoremap <C-s> :w<CR>
-	nnoremap <Leader>s :w<CR>
 	nnoremap S :w<CR>
+
+	noremap <leader>p :setlocal paste!<cr>
 
 	set viminfo='100,\"50    	" read/write a .viminfo file, don't store more
 								" than 50 lines of registers
@@ -308,9 +309,14 @@ func! tweak#fzf()
 	nnoremap <C-f>f     :FZF<CR>
 	nnoremap <Leader>f  :FZF<CR>
 
-	" MRU
-	nnoremap <C-f><C-m> :FZFHistory<CR>
-	nnoremap <C-f>m     :FZFHistory<CR>
+	" Recently opened files
+	nnoremap <C-f><C-r> :FZFHistory<CR>
+	nnoremap <C-f>r     :FZFHistory<CR>
+	nnoremap <C-f><C-h> :FZFHistory<CR>
+	nnoremap <C-f>h     :FZFHistory<CR>
+
+	nnoremap <C-f><C-m> :FZFMaps<CR>
+	nnoremap <C-f>m     :FZFMaps<CR>
 
 	" Commands
 	nnoremap <C-f><C-c> :FZFCommands<CR>
@@ -333,8 +339,8 @@ func! tweak#fzf()
 	nnoremap <C-f>:  	 :FZFCommands<CR>
 
 	" fzf ag
-	nnoremap <C-f>a  	 :FZFAg<Space>
-	nnoremap <C-f><C-a>  :FZFAg<Space>
+	nnoremap <expr> <C-f>a  	 ':FZFAg '
+	nnoremap <expr> <C-f><C-a>   ':FZFAg '
 
 endfunc
 
