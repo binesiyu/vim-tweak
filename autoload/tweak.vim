@@ -278,6 +278,7 @@ func! tweak#tagbar()
 endfunc
 
 func! tweak#nerdtree()
+	let g:NERDTreeQuitOnOpen=1
 	nnoremap <C-p><C-n> :NERDTreeToggle<CR>
 	nnoremap <C-p>n :NERDTreeToggle<CR>
 	"  close vim if the only window left open is a NERDTree
