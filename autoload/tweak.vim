@@ -178,7 +178,6 @@ func! tweak#bootstrap()
 	" conflict with gruvbox colorscheme
 	" hi Search guibg=LightBlue ctermbg=LightBlue
 	" hi MatchParen ctermbg=lightred guibg=lightred
-	autocmd VimEnter * DoMatchParen
 
 	"
 	" }
