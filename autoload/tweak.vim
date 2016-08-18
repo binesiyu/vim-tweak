@@ -4,9 +4,17 @@
 " usage: TweakForPlugin bling/vim-airline call tweak#airline()
 command! -nargs=+ TweakForPlugin call tweak#tweak_for_plugin(<f-args>)
 
-func! tweak#has_plug(repo)
+func! tweak#has_plugin(repo)
 	" g:TweakHasPlug is defined globally in vimrc
-	return g:TweakHasPlug(a:repo)
+	if exists('g:_tweak_has_plugin_cache')==0
+		let g:_tweak_has_plugin_cache = {}
+	endif
+	if has_key(g:_tweak_has_plugin_cache,a:repo)==0
+		let g:_tweak_has_plugin_cache = {}
+	endif
+	let l:ret = g:TweakHasPlug(a:repo)
+	let g:_tweak_has_plugin_cache[a:repo] = l:ret
+	return l:ret
 endfunc
 
 func! tweak#tweak_for_plugin(repo,...)
@@ -14,7 +22,7 @@ func! tweak#tweak_for_plugin(repo,...)
 	if l:repo[0]=="'" || l:repo[0]=='"'
 		let l:repo = eval(a:repo)
 	endif
-	if tweak#has_plug(l:repo)==0
+	if tweak#has_plugin(l:repo)==0
 		" echo "plugin not installed: " . l:repo
 		return
 	endif
