@@ -105,6 +105,7 @@ func! tweak#bootstrap()
 	nnoremap <Leader>9 :buffer 9<CR>
 	nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
 	nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
+	nnoremap <expr> <S-q>     len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))>1?":bd\<CR>":":q\<CR>"
 	nnoremap <Leader>b :ls<CR>:buffer<Space>
 	" nnoremap <expr> <Leader>b tweak#wtb_switch#key_bufer()
 	" Avoid message "E37: No write since last change (add ! to override)" when try
