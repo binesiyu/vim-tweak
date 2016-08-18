@@ -111,9 +111,6 @@ func! tweak#bootstrap()
 	" Avoid message "E37: No write since last change (add ! to override)" when try
 	" to switch buffer
 
-	" nnoremap <expr> <Leader>b eval('ls | return 1')
-	" :ls<CR>:echo "buffer:"<CR>:execute 'b ' . nr2char(getchar())<CR>
-
 	set hidden
 
 	" file tab highlighting, deprecated, use airline plugin with 'set t_Co=256' now
@@ -232,6 +229,13 @@ func! tweak#bootstrap()
 	set foldmethod=syntax
 	set foldlevel=100
 
+	" }
+	""""
+
+	""""
+	" panes
+	" {
+	nnoremap <C-p>c :cwindow<CR>
 	" }
 	""""
 
