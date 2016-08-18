@@ -148,6 +148,11 @@ func! tweak#bootstrap()
 	inoremap <C-b> <Left>
 	inoremap <C-f> <Right>
 
+	" the m key is taken by easymotion
+	noremap - m
+	" ` is more precise than '
+	noremap ' `
+
 	"
 	" }
 	""""
@@ -193,6 +198,7 @@ func! tweak#bootstrap()
 
 	nnoremap <C-s> :w<CR>
 	nnoremap <Leader>s :w<CR>
+	nnoremap S :w<CR>
 
 	set viminfo='100,\"50    	" read/write a .viminfo file, don't store more
 								" than 50 lines of registers
@@ -396,9 +402,11 @@ endfunc
 func! tweak#easymotion()
 	" do not use default mapping, I only use the s key
 	let g:EasyMotion_do_mapping = 0
-	" go to character
-	nmap s <Plug>(easymotion-s)
-	xmap s <Plug>(easymotion-s)
+	" Turn on case insensitive feature
+	let g:EasyMotion_smartcase = 1
+	" go to character, 'm' for motion
+	nmap m <Plug>(easymotion-s)
+	xmap m <Plug>(easymotion-s)
 endfunc
 
 func! tweak#go()
@@ -445,12 +453,11 @@ endfunc
 
 func! tweak#surround()
 	let g:surround_no_mappings = 1
-	" S instead of ys, feels more cons
-	" S instead of s, s is occupied by vim-sneak
-	nmap dS  <Plug>Dsurround
-	nmap cS  <Plug>Csurround
-	nmap  S  <Plug>Ysurround
-	xmap  S  <Plug>VSurround
+	" s instead of ys, feels more consistence
+	nmap ds  <Plug>Dsurround
+	nmap cs  <Plug>Csurround
+	nmap  s  <Plug>Ysurround
+	xmap  s  <Plug>VSurround
 endfunc
 
 " ""
