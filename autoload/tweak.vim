@@ -142,12 +142,6 @@ func! tweak#bootstrap()
 	nnoremap <expr> <C-u> winheight(0)/3 . '<C-y>'
 	nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
 
-	" just like shell command editing
-	inoremap <C-e> <C-o>$
-	inoremap <C-a> <C-o>^
-	inoremap <C-b> <Left>
-	inoremap <C-f> <Right>
-
 	" the m key is taken by easymotion
 	noremap - m
 	" ` is more precise than '
@@ -196,6 +190,7 @@ func! tweak#bootstrap()
 	" editing
 	" {
 
+	" save
 	nnoremap <C-s> :w<CR>
 	nnoremap S :w<CR>
 
@@ -235,6 +230,22 @@ func! tweak#bootstrap()
 	set foldenable
 	set foldmethod=syntax
 	set foldlevel=100
+
+
+	" like emacs mode shell command editing
+	inoremap <C-E> <C-o>$
+	inoremap <C-A> <C-o>^
+	inoremap <C-B> <Left>
+	inoremap <C-F> <Right>
+
+	" command line editing
+	cnoremap <C-A>      <Home>
+	cnoremap <C-B>      <Left>
+	cnoremap <C-F>      <Right>
+	" already well mapped by default:
+	" <C-P> <Up>
+	" <C-N> <Down>
+	" <C-E> <End>
 
 	" }
 	""""
