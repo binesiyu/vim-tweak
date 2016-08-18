@@ -1,4 +1,10 @@
 
+func! tweak#has_plug(repo)
+	" g:TweakHasPlug is defined globally in vimrc
+	return g:TweakHasPlug(a:repo)
+endfunc
+
+" called by user's vimrc
 func! tweak#bootstrap()
 
 	"""
