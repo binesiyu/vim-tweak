@@ -17,10 +17,20 @@ func! tweak#wtb_switch#key_quit()
 	let l:list = filter(range(1, bufnr('$')), 'buflisted(v:val)')
 	let l:nr = bufnr('%')
 	if len(l:list)>1
-		if index(l:list,l:nr)>0
+
+		" special buffer
+		if index(['quickfix','help'],&buftype)>=0
+			return ":q\<CR>"
+		endif
+
+		if index(l:list,l:nr)>=0
 			return ":bn\<CR>:bd " . l:nr  . "\<CR>"
 		else
-			return ":bd\<CR>"
+			if winnr('$')>1
+				return ":q\<CR>"
+			else
+				return ":bd\<CR>"
+			endif
 		endif
 	else
 		return ":q\<CR>"

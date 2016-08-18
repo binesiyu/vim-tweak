@@ -263,6 +263,9 @@ func! tweak#airline()
 endfunc
 
 func! tweak#tagbar()
+	" <C-p> for open/close pane
+	nnoremap <C-p><C-t> :TagbarToggle<CR>
+	nnoremap <C-p>t :TagbarToggle<CR>
 	" The tags are not sorted according to their name
 	let g:tagbar_sort = 0
 	let g:tagbar_type_php  = {
