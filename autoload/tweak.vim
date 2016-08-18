@@ -1,7 +1,24 @@
 
+""
+" execute command only the corrosponding plugin is installed
+" usage: TweakForPlugin bling/vim-airline call tweak#airline()
+command! -nargs=+ TweakForPlugin call tweak#tweak_for_plugin(<f-args>)
+
 func! tweak#has_plug(repo)
 	" g:TweakHasPlug is defined globally in vimrc
 	return g:TweakHasPlug(a:repo)
+endfunc
+
+func! tweak#tweak_for_plugin(repo,...)
+	let l:repo = a:repo
+	if l:repo[0]=="'" || l:repo[0]=='"'
+		let l:repo = eval(a:repo)
+	endif
+	if tweak#has_plug(l:repo)==0
+		" echo "plugin not installed: " . l:repo
+		return
+	endif
+	execute join(a:000)
 endfunc
 
 " called by user's vimrc
@@ -134,7 +151,7 @@ func! tweak#bootstrap()
 	" {
 
 	" visual mode asterisk search
-	vmap * <Plug>(asterisk-*)
+	TweakForPlugin 'haya14busa/vim-asterisk' vmap * <Plug>(asterisk-*)
 
 	"   use ':' so that we could found the previous search string in history command
 	"   '\c' case insensitive
@@ -208,20 +225,20 @@ func! tweak#bootstrap()
 	" }
 	""""
 
-	call tweak#airline()
-	call tweak#tagbar()
-	call tweak#nerdtree()
-	call tweak#fzf()
-	call tweak#SimpleAutoComplPop()
-	call tweak#solarized()
-	call tweak#syntastic()
-	call tweak#ctrlp()
-	call tweak#easymotion()
-	call tweak#go()
-	call tweak#markdown()
-	call tweak#vim_tmux_navigator()
-	call tweak#winresizer()
-	call tweak#YouCompleteMe()
+	TweakForPlugin 'bling/vim-airline' call tweak#airline()
+	TweakForPlugin 'majutsushi/tagbar' call tweak#tagbar()
+	TweakForPlugin 'scrooloose/nerdtree' call tweak#nerdtree()
+	TweakForPlugin 'junegunn/fzf.vim' call tweak#fzf()
+	TweakForPlugin 'roxma/SimpleAutoComplPop' call tweak#SimpleAutoComplPop()
+	TweakForPlugin 'altercation/vim-colors-solarized' call tweak#solarized()
+	TweakForPlugin 'scrooloose/syntastic' call tweak#syntastic()
+	TweakForPlugin 'ctrlpvim/ctrlp.vim' call tweak#ctrlp()
+	TweakForPlugin 'Lokaltog/vim-easymotion' call tweak#easymotion()
+	TweakForPlugin 'fatih/vim-go' call tweak#go()
+	TweakForPlugin 'plasticboy/vim-markdown' call tweak#markdown()
+	TweakForPlugin 'christoomey/vim-tmux-navigator' call tweak#vim_tmux_navigator()
+	TweakForPlugin 'simeji/winresizer'      call tweak#winresizer()
+	TweakForPlugin 'Valloric/YouCompleteMe' call tweak#YouCompleteMe()
 
 endfunc
 
@@ -406,4 +423,61 @@ func! tweak#YouCompleteMe()
 	let g:ycm_semantic_triggers = {}
 	let g:ycm_semantic_triggers.php =  ['->','::','re![_a-zA-Z]{3,}']
 endfunc
+
+
+" ""
+" " Parse and execute vimscript in c/cpp file
+" "
+" " for example: (test.cpp)
+" " /**
+" "  * @vimrc let &l:makeprg='cd ' . expand('%:p:h') . ' && g++ test.cpp -o test.o'
+" "  */
+" "
+" 
+" """
+" " Secirity issue
+" """
+" 
+" autocmd FileType c,cpp call CFileLocalVimrc()
+" 
+" function! CFileLocalVimrc()
+" 	
+" 	let l:l = 1
+" 	let l:skipThis=1
+" 
+" 	" check first line
+" 	let l:lineArr = getbufline('%',l)
+" 	if ( len(l:lineArr)==0)   " empty file
+" 		return
+" 	endif
+" 	let l:lineStr = l:lineArr[0]
+" 	if ( l:lineStr !~ '^\/\*\*$' )				" /** first line
+" 		return
+" 	endif
+" 
+" 	let l:l = l:l+1
+" 	while (1)
+" 
+" 		let l:lineArr = getbufline("%",l)
+" 		if ( len(l:lineArr)==0)
+" 			call cursor(l:l-1, 1)
+" 			return
+" 		endif
+" 
+" 		let l:lineStr = l:lineArr[0]
+" 		if(l:lineStr !~ '^\s\*')
+" 			return
+" 		endif
+" 
+" 		if(l:lineStr =~ '^\s\*\s@vimrc')
+" 			let l:toExecute = substitute(l:lineStr,'^\s\*\s@vimrc','','')
+" 			" silent execute '!echo l:toExecute'
+" 			execute l:toExecute
+" 		endif
+"       
+" 		let l:l = l:l+1
+" 	endwhile
+" 
+" endfunction
+ 
 
