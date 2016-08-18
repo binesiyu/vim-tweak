@@ -192,7 +192,9 @@ func! tweak#bootstrap()
 	"""
 	" editing
 	" {
-	"
+
+	nnoremap <C-s> :w<CR>
+	nnoremap S :w<CR>
 
 	set viminfo='100,\"50    	" read/write a .viminfo file, don't store more
 								" than 50 lines of registers
@@ -386,7 +388,6 @@ func! tweak#easymotion()
 	let g:EasyMotion_do_mapping = 0
 	" go to character
 	nmap s <Plug>(easymotion-s)
-	nmap S <Plug>(easymotion-overwin-f)
 endfunc
 
 func! tweak#go()
