@@ -94,15 +94,15 @@ func! tweak#bootstrap()
 
 	" NOTE: this is wierd, the follow ing command is invalid:
 	" nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()==3))||(type(tabpagebuflist(tabpagenr()-1))==3)) ? ":tabn\<CR>"  : ":bn\<CR>" )
-	nnoremap <Leader>1 :buffer 1<CR>
-	nnoremap <Leader>2 :buffer 2<CR>
-	nnoremap <Leader>3 :buffer 3<CR>
-	nnoremap <Leader>4 :buffer 4<CR>
-	nnoremap <Leader>5 :buffer 5<CR>
-	nnoremap <Leader>6 :buffer 6<CR>
-	nnoremap <Leader>7 :buffer 7<CR>
-	nnoremap <Leader>8 :buffer 8<CR>
-	nnoremap <Leader>9 :buffer 9<CR>
+	nnoremap <expr> <Leader>1 tweak#wtb_switch#key_leader_bufnum(1)
+	nnoremap <expr> <Leader>2 tweak#wtb_switch#key_leader_bufnum(2)
+	nnoremap <expr> <Leader>3 tweak#wtb_switch#key_leader_bufnum(3)
+	nnoremap <expr> <Leader>4 tweak#wtb_switch#key_leader_bufnum(4)
+	nnoremap <expr> <Leader>5 tweak#wtb_switch#key_leader_bufnum(5)
+	nnoremap <expr> <Leader>6 tweak#wtb_switch#key_leader_bufnum(6)
+	nnoremap <expr> <Leader>7 tweak#wtb_switch#key_leader_bufnum(7)
+	nnoremap <expr> <Leader>8 tweak#wtb_switch#key_leader_bufnum(8)
+	nnoremap <expr> <Leader>9 tweak#wtb_switch#key_leader_bufnum(9)
 	nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
 	nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
 	nnoremap <expr> <S-q>     tweak#wtb_switch#key_quit()
@@ -147,6 +147,12 @@ func! tweak#bootstrap()
 	" ` is more precise than '
 	noremap ' `
 
+	" <Leader><C-O>
+	" <Leader><C-I>
+	" <Leader>g;
+	" <Leader>g,
+	" 参考 https://github.com/dyng/ctrlsf.vim 的实现
+	" popup a windw like AG.vim which shows more than one line
 	" func! <SID>changes()
 	" 	let l:m=&more
 	" 	let l:s=&shortmess
