@@ -147,6 +147,19 @@ func! tweak#bootstrap()
 	" ` is more precise than '
 	noremap ' `
 
+	" func! <SID>changes()
+	" 	let l:m=&more
+	" 	let l:s=&shortmess
+	" 	set nomore
+	" 	set shortmess=a
+	" 	redir => g:changes
+	" 	silent changes
+	" 	redir END
+	" 	let &shortmess=l:s
+	" 	let &more=l:m
+	" endfunc
+	" nnoremap <expr> <Leader>g; <SID>changes()
+
 	"
 	" }
 	""""
@@ -237,11 +250,13 @@ func! tweak#bootstrap()
 	inoremap <C-A> <C-o>^
 	inoremap <C-B> <Left>
 	inoremap <C-F> <Right>
+	inoremap <C-D> <Delete>
 
 	" command line editing
 	cnoremap <C-A>      <Home>
 	cnoremap <C-B>      <Left>
 	cnoremap <C-F>      <Right>
+	cnoremap <C-D>      <Delete>
 	" already well mapped by default:
 	" <C-P> <Up>
 	" <C-N> <Down>
