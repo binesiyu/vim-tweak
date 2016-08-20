@@ -261,7 +261,7 @@ func! tweak#bootstrap()
 	" command line editing
 	cnoremap <C-A>      <Home>
 	cnoremap <C-B>      <Left>
-	cnoremap <C-F>      <Right>
+	cnoremap <expr> <C-F>  (getcmdpos()<(len(getcmdline())+1)) && (getcmdtype()==":") ?  "\<Right>" : "\<C-F>"
 	cnoremap <C-D>      <Delete>
 	" already well mapped by default:
 	" <C-P> <Up>
