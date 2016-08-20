@@ -261,8 +261,11 @@ func! tweak#bootstrap()
 	" command line editing
 	cnoremap <C-A>      <Home>
 	cnoremap <C-B>      <Left>
-	cnoremap <C-F>      <Right>
 	cnoremap <C-D>      <Delete>
+	" <C-F>  is also used for open  normal command-line editing. So if the
+	" cursor is at the end of the command-line, open normal command-line
+	" editing, otherwise move the cursor one character right.
+	cnoremap <expr> <C-F>  (getcmdpos()<(len(getcmdline())+1)) && (getcmdtype()==":") ?  "\<Right>" : "\<C-F>"
 	" already well mapped by default:
 	" <C-P> <Up>
 	" <C-N> <Down>
