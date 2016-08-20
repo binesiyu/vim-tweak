@@ -60,7 +60,8 @@ func! tweak#wtb_switch#key_leader_bufnum(num)
 
 		" no matches
 		if l:cnt==0 && len(l:input)>0
-			echo "no buffer [" . l:input . "]"
+			" echoerr is a bit annoying, use echohl instead
+			echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
 			return ''
 		elseif l:cnt==1
 			return ":b " . l:input . "\<CR>"
