@@ -32,8 +32,7 @@ endfunc
 " called by user's vimrc
 func! tweak#bootstrap(plugDir)
 
-	let mapleader = " "
-
+	let g:mapleader = " "
 
 	func! s:TweakPlugBegin(dir,...)
 		let g:_tweak_plugins_dir = a:dir
