@@ -1,71 +1,59 @@
 
 ""
 " execute command only the corrosponding plugin is installed
-" usage: TweakForPlugin bling/vim-airline call tweak#airline()
-command! -nargs=+ TweakForPlugin call tweak#tweak_for_plugin(<f-args>)
+" usage: TweakForPlug bling/vim-airline call tweak#airline()
+command! -nargs=+ TweakForPlug call s:TweakForPlug(<f-args>)
+command! -nargs=+ -bar  TweakPlugBegin  call plug#begin(<args>) | call s:TweakPlugBegin(<args>)
+command! -nargs=+ -bar  TweakPlug  call s:TweakPlug(<args>) | Plug <args>
+command! -bar  TweakPlugEnd  call plug#end()
 
-func! tweak#has_plugin(repo)
-	" g:TweakHasPlug is defined globally in vimrc
+
+func! s:TweakPlugBegin(dir,...)
+	let g:_tweak_plugins_dir = a:dir
+endfunc
+
+
+" register plugins for vim-tweak
+func! s:TweakPlug(...)
+	if exists('g:_tweak_plugins')!=1
+		let g:_tweak_plugins = {}
+	endif
+	if len(a:000)>0
+		let g:_tweak_plugins[a:000[0]] = a:000[1:]
+	endif
+	return g:_tweak_plugins
+endfunc
+
+func! s:TweakHasPlug(repo)
+	if has_key(s:TweakPlug(),a:repo) == 0
+		return 0
+	endif
 	if exists('g:_tweak_has_plugin_cache')==0
 		let g:_tweak_has_plugin_cache = {}
 	endif
-	if has_key(g:_tweak_has_plugin_cache,a:repo)==0
-		let g:_tweak_has_plugin_cache = {}
+	if has_key(g:_tweak_has_plugin_cache,a:repo)==1
+		return g:_tweak_has_plugin_cache[a:repo]
 	endif
-	let l:ret = g:TweakHasPlug(a:repo)
-	let g:_tweak_has_plugin_cache[a:repo] = l:ret
-	return l:ret
+	let g:_tweak_has_plugin_cache[a:repo] = (finddir(fnamemodify(a:repo,":t"),g:_tweak_plugins_dir) != "")
+	return g:_tweak_has_plugin_cache[a:repo]
 endfunc
 
-func! tweak#tweak_for_plugin(repo,...)
+func! s:TweakForPlug(repo,...)
 	let l:repo = a:repo
 	if l:repo[0]=="'" || l:repo[0]=='"'
 		let l:repo = eval(a:repo)
 	endif
-	if tweak#has_plugin(l:repo)==0
+	if s:TweakHasPlug(l:repo)==0
 		" echo "plugin not installed: " . l:repo
 		return
 	endif
 	execute join(a:000)
 endfunc
 
-" called by user's vimrc
-func! tweak#bootstrap(plugDir)
+func! tweak#plug(plugDir)
 
-	let g:mapleader = " "
-
-	func! s:TweakPlugBegin(dir,...)
-		let g:_tweak_plugins_dir = a:dir
-	endfunc
-
-	" register plugins for vim-tweak
-	func! g:TweakPlug(...)
-		if exists('g:_tweak_plugins')!=1
-			let g:_tweak_plugins = {}
-		endif
-		if len(a:000)>0
-			let g:_tweak_plugins[a:000[0]] = a:000[1:]
-		endif
-		return g:_tweak_plugins
-	endfunc
-
-	func! g:TweakHasPlug(repo)
-		if has_key(TweakPlug(),a:repo) == 0
-			return 0
-		endif
-		if finddir(fnamemodify(a:repo,":t"),g:_tweak_plugins_dir) == ""
-			return 0
-		endif
-		return 1
-	endfunc
-
-	" You should execute :PlugInstall to install plugins when open vim for the
+	" Execute :PlugInstall to install plugins when open vim for the
 	" first time
-
-	command -nargs=+ -bar  TweakPlugBegin  call plug#begin(<args>) | call s:TweakPlugBegin(<args>)
-	command -nargs=+ -bar  TweakPlug  call g:TweakPlug(<args>) | Plug <args>
-	command -bar  TweakPlugEnd  call plug#end()
-
 
 	TweakPlugBegin a:plugDir
 
@@ -154,6 +142,24 @@ func! tweak#bootstrap(plugDir)
 	" TweakPlug 'ryanss/vim-hackernews'
 
 	TweakPlugEnd
+
+endfunc
+
+" called by user's vimrc
+func! tweak#bootstrap(...)
+
+	set nocompatible
+	syntax on
+	filetype plugin indent on
+	set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
+
+	let g:mapleader = " "
+
+	if a:0>0 && type(a:1)==1
+		" first argument is directory for plugins managed by vim-plug
+		call tweak#plug(a:1)
+	endif
+
 
 	"""
 	" appearance
@@ -298,7 +304,7 @@ func! tweak#bootstrap(plugDir)
 	" {
 
 	" visual mode asterisk search
-	TweakForPlugin 'haya14busa/vim-asterisk' vmap * <Plug>(asterisk-*)
+	TweakForPlug 'haya14busa/vim-asterisk' vmap * <Plug>(asterisk-*)
 
 	"   use ':' so that we could found the previous search string in history command
 	"   '\c' case insensitive
@@ -410,21 +416,21 @@ func! tweak#bootstrap(plugDir)
 	" }
 	""""
 
-	TweakForPlugin 'bling/vim-airline' call tweak#airline()
-	TweakForPlugin 'majutsushi/tagbar' call tweak#tagbar()
-	TweakForPlugin 'scrooloose/nerdtree' call tweak#nerdtree()
-	TweakForPlugin 'junegunn/fzf.vim' call tweak#fzf()
-	TweakForPlugin 'roxma/SimpleAutoComplPop' call tweak#SimpleAutoComplPop()
-	TweakForPlugin 'altercation/vim-colors-solarized' call tweak#solarized()
-	TweakForPlugin 'scrooloose/syntastic' call tweak#syntastic()
-	TweakForPlugin 'ctrlpvim/ctrlp.vim' call tweak#ctrlp()
-	TweakForPlugin 'Lokaltog/vim-easymotion' call tweak#easymotion()
-	TweakForPlugin 'fatih/vim-go' call tweak#go()
-	TweakForPlugin 'plasticboy/vim-markdown' call tweak#markdown()
-	TweakForPlugin 'christoomey/vim-tmux-navigator' call tweak#vim_tmux_navigator()
-	TweakForPlugin 'simeji/winresizer'      call tweak#winresizer()
-	TweakForPlugin 'Valloric/YouCompleteMe' call tweak#YouCompleteMe()
-	TweakForPlugin 'tpope/vim-surround' call tweak#surround()
+	TweakForPlug 'bling/vim-airline' call tweak#airline()
+	TweakForPlug 'majutsushi/tagbar' call tweak#tagbar()
+	TweakForPlug 'scrooloose/nerdtree' call tweak#nerdtree()
+	TweakForPlug 'junegunn/fzf.vim' call tweak#fzf()
+	TweakForPlug 'roxma/SimpleAutoComplPop' call tweak#SimpleAutoComplPop()
+	TweakForPlug 'altercation/vim-colors-solarized' call tweak#solarized()
+	TweakForPlug 'scrooloose/syntastic' call tweak#syntastic()
+	TweakForPlug 'ctrlpvim/ctrlp.vim' call tweak#ctrlp()
+	TweakForPlug 'Lokaltog/vim-easymotion' call tweak#easymotion()
+	TweakForPlug 'fatih/vim-go' call tweak#go()
+	TweakForPlug 'plasticboy/vim-markdown' call tweak#markdown()
+	TweakForPlug 'christoomey/vim-tmux-navigator' call tweak#vim_tmux_navigator()
+	TweakForPlug 'simeji/winresizer'      call tweak#winresizer()
+	TweakForPlug 'Valloric/YouCompleteMe' call tweak#YouCompleteMe()
+	TweakForPlug 'tpope/vim-surround' call tweak#surround()
 
 endfunc
 
