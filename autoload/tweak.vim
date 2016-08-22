@@ -337,6 +337,12 @@ func! tweak#bootstrap(plugDir)
 	nnoremap <C-s> :w<CR>
 	nnoremap S :w<CR>
 
+	" `u` is the undo key in normal mode
+	" `U` would be more intuitive to be the redo key.
+	" The original `U` key may have is usage circumstances, but dost not look
+	" good to me.
+	nnoremap U <C-R>
+
 	noremap <leader>p :setlocal paste!<cr>
 
 	set viminfo='100,\"50    	" read/write a .viminfo file, don't store more
