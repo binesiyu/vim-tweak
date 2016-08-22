@@ -235,7 +235,7 @@ func! tweak#bootstrap(...)
 	nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
 	nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
 	nnoremap <expr> <S-q>     tweak#wtb_switch#key_quit()
-	nnoremap <Leader>b :ls<CR>:buffer<Space>
+	nnoremap        <Leader>b :ls<CR>:buffer<Space>
 	" nnoremap <expr> <Leader>b tweak#wtb_switch#key_bufer()
 	" Avoid message "E37: No write since last change (add ! to override)" when try
 	" to switch buffer
@@ -416,21 +416,21 @@ func! tweak#bootstrap(...)
 	" }
 	""""
 
-	TweakForPlug 'bling/vim-airline' call tweak#airline()
-	TweakForPlug 'majutsushi/tagbar' call tweak#tagbar()
-	TweakForPlug 'scrooloose/nerdtree' call tweak#nerdtree()
-	TweakForPlug 'junegunn/fzf.vim' call tweak#fzf()
-	TweakForPlug 'roxma/SimpleAutoComplPop' call tweak#SimpleAutoComplPop()
+	TweakForPlug 'bling/vim-airline'                call tweak#airline()
+	TweakForPlug 'majutsushi/tagbar'                call tweak#tagbar()
+	TweakForPlug 'scrooloose/nerdtree'              call tweak#nerdtree()
+	TweakForPlug 'junegunn/fzf.vim'                 call tweak#fzf()
+	TweakForPlug 'roxma/SimpleAutoComplPop'         call tweak#SimpleAutoComplPop()
 	TweakForPlug 'altercation/vim-colors-solarized' call tweak#solarized()
-	TweakForPlug 'scrooloose/syntastic' call tweak#syntastic()
-	TweakForPlug 'ctrlpvim/ctrlp.vim' call tweak#ctrlp()
-	TweakForPlug 'Lokaltog/vim-easymotion' call tweak#easymotion()
-	TweakForPlug 'fatih/vim-go' call tweak#go()
-	TweakForPlug 'plasticboy/vim-markdown' call tweak#markdown()
-	TweakForPlug 'christoomey/vim-tmux-navigator' call tweak#vim_tmux_navigator()
-	TweakForPlug 'simeji/winresizer'      call tweak#winresizer()
-	TweakForPlug 'Valloric/YouCompleteMe' call tweak#YouCompleteMe()
-	TweakForPlug 'tpope/vim-surround' call tweak#surround()
+	TweakForPlug 'scrooloose/syntastic'             call tweak#syntastic()
+	TweakForPlug 'ctrlpvim/ctrlp.vim'               call tweak#ctrlp()
+	TweakForPlug 'Lokaltog/vim-easymotion'          call tweak#easymotion()
+	TweakForPlug 'fatih/vim-go'                     call tweak#go()
+	TweakForPlug 'plasticboy/vim-markdown'          call tweak#markdown()
+	TweakForPlug 'christoomey/vim-tmux-navigator'   call tweak#vim_tmux_navigator()
+	TweakForPlug 'simeji/winresizer'                call tweak#winresizer()
+	TweakForPlug 'Valloric/YouCompleteMe'           call tweak#YouCompleteMe()
+	TweakForPlug 'tpope/vim-surround'               call tweak#surround()
 
 endfunc
 
