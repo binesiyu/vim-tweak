@@ -49,11 +49,15 @@ func! tweak#wtb_switch#key_leader_bufnum(num)
 
 		let l:cnt = 0
 		let l:i=0
+		let l:exactCnt = 0
 		" count matches
 		while l:i<len(l:buffers)
 			let l:bn = l:buffers[l:i] . ""
 			if l:input==l:bn[0:len(l:input)-1]
 				let l:cnt+=1
+			endif
+			if l:input == l:bn
+				let l:exactCnt+=1
 			endif
 			let l:i+=1
 		endwhile
@@ -63,7 +67,7 @@ func! tweak#wtb_switch#key_leader_bufnum(num)
 			" echoerr is a bit annoying, use echohl instead
 			echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
 			return ''
-		elseif l:cnt==1
+		elseif l:cnt==1 && l:exactCnt==1
 			return ":b " . l:input . "\<CR>"
 		endif
 
