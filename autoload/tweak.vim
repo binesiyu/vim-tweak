@@ -77,6 +77,8 @@ func! tweak#plug(plugDir)
 	TweakPlug 'gregsexton/gitv'
 	TweakPlug 'airblade/vim-gitgutter'
 
+	TweakPlug 'junegunn/vim-peekaboo'
+
 	TweakPlug 'roxma/vim-encode'
 	TweakPlug 'godlygeek/tabular'
 	TweakPlug 'tpope/vim-surround'
