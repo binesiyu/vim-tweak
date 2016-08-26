@@ -307,6 +307,7 @@ func! tweak#bootstrap(...)
 
 	" visual mode asterisk search
 	TweakForPlug 'haya14busa/vim-asterisk' vmap * <Plug>(asterisk-*)
+	TweakForPlug 'haya14busa/vim-asterisk' vmap # <Plug>(asterisk-#)
 
 	"   use ':' so that we could found the previous search string in history command
 	"   '\c' case insensitive
