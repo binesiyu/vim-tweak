@@ -96,6 +96,7 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'Valloric/YouCompleteMe'
 	TweakPlug 'scrooloose/syntastic'
 	TweakPlug 'roxma/SimpleAutoComplPop'
+	" TweakPlug 'jiangmiao/auto-pairs'
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
@@ -110,6 +111,7 @@ func! tweak#plug(plugDir)
 	TweakPlug 'junegunn/fzf.vim'
 	" for the enhanced <Leader>* key
 	TweakPlug 'haya14busa/vim-asterisk'
+	TweakPlug 'dyng/ctrlsf.vim'
 
 	" markdown
 	TweakPlug 'plasticboy/vim-markdown'
