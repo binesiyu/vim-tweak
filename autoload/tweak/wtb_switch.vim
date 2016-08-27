@@ -28,7 +28,7 @@ func! tweak#wtb_switch#key_quit()
 		endif
 
 		if index(l:list,l:nr)>=0
-			return ":bn\<CR>:bd " . l:nr  . "\<CR>"
+			return "^:bd " . l:nr  . "\<CR>"
 		else
 			if winnr('$')>1
 				return ":q\<CR>"
