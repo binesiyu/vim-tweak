@@ -122,6 +122,9 @@ nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)8 tweak#wtb_switch#key
 nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)9 tweak#wtb_switch#key_leader_bufnum(9,1)
 nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)0 tweak#wtb_switch#key_leader_bufnum(0,1)
 
+" TODO: keepjumps for tempory jumps
+" TODO: lock buffer history for tempory jumps
+
 func! tweak#wtb_switch#key_leader_bufnum(num,...)
 	call s:init()
 
@@ -132,45 +135,47 @@ func! tweak#wtb_switch#key_leader_bufnum(num,...)
 		let l:prefix = ''
 	endif
 
-	let l:buffers = s:listed_buffers()
 	let l:input = l:prefix . a:num . ""
 
 	let g:tweak#wtb_switch#key_leader_bufnum_prefix = l:input
 
-	while 1
-
-		let l:cnt = 0
-		let l:i=0
-		let l:exact = 0
-		" count matches
-		while l:i<len(l:buffers)
-			let l:bn = l:buffers[l:i] . ""
-			if l:input==l:bn[0:len(l:input)-1]
-				let l:cnt+=1
-			endif
-			if l:input == l:bn
-				let l:exact=1
-			endif
-			let l:i+=1
-		endwhile
-
-		" no matches
-		if l:cnt==0
-			" echoerr is a bit annoying, use echohl instead
-			echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
-			return ''
-		elseif l:exact && l:cnt==1
-			" This is the only match
-			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . " \<CR>")
-		elseif l:exact && l:cnt>1
-			" There's an exact match, but we still needs futher input to verify
-			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . ' | call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)") ' . " \<CR>")
-		else 
-			" need further input
-			return tweak#wtb_switch#key_switch_buffer_in_this_page(':call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)") ' . " \<CR>")
+	let l:cnt   = 0
+	let l:exact = 0
+	" count matches
+	let l:buffers = s:listed_buffers()
+	for l:bn in l:buffers
+		if l:input==l:bn[0:len(l:input)-1]
+			let l:cnt+=1
 		endif
+		if l:input == l:bn
+			let l:exact=1
+		endif
+	endfor
 
-	endwhile
+	let l:keepjumps = ''
+	if l:usePrefix && get(g:,'tweak#wtb_switch#key_leader_bufnum_tmpnr',0)
+		let l:keepjumps = 'keepjumps '
+		call s:listedbuf_history_remove_tail()
+	endif
+
+	" no matches
+	if l:cnt==0
+		" echoerr is a bit annoying, use echohl instead
+		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = 0
+		echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
+		return ''
+	elseif l:exact && l:cnt==1
+		" This is the only match
+		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = 0
+		return tweak#wtb_switch#key_switch_buffer_in_this_page(":" . l:keepjumps . " b " . l:input . "\<CR>")
+	elseif l:exact && l:cnt>1
+		" There's an exact match, but we still needs more input to verify
+		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = l:input
+		return tweak#wtb_switch#key_switch_buffer_in_this_page(":" . l:keepjumps . " b " . l:input . ' | call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)")' . "\<CR>")
+	else 
+		" need more input
+		return tweak#wtb_switch#key_switch_buffer_in_this_page(':call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)")' . "\<CR>")
+	endif
 
 endfunc
 
@@ -178,27 +183,35 @@ func! s:listed_buffers()
   return filter(range(1, bufnr('$')), 'buflisted(v:val)')
 endfunc
 
-
+let g:tweak#wtb_switch#listedbuf_history = []
 func! s:buf_win_enter()
 	let l:nr = bufnr('%')
 	if buflisted(l:nr)
-		let g:tweak#wtb_switch#listed_buf_access_history = add(get(g:,'tweak#wtb_switch#listed_buf_access_history',[]),l:nr)
+		call add(g:tweak#wtb_switch#listedbuf_history,l:nr)
+		" remove duplicated history
+		while (len(g:tweak#wtb_switch#listedbuf_history)>=2) && (g:tweak#wtb_switch#listedbuf_history[-1]==g:tweak#wtb_switch#listedbuf_history[-2])
+			call remove(g:tweak#wtb_switch#listedbuf_history,-1)
+		endwhile
 		" do not exceeds 100
-		if len(g:tweak#wtb_switch#listed_buf_access_history) > 100
-			call remove(g:tweak#wtb_switch#listed_buf_access_history,0,9)
+		if len(g:tweak#wtb_switch#listedbuf_history) > 100
+			call remove(g:tweak#wtb_switch#listedbuf_history,0,9)
 		endif
 	endif
 endfunc
 
-func! s:key_switch_buffer_before_bd(nr,list)
-	let g:tweak#wtb_switch#listed_buf_access_history = get(g:,'tweak#wtb_switch#listed_buf_access_history',[])
+func! s:listedbuf_history_remove_tail()
+	call remove(g:tweak#wtb_switch#listedbuf_history,-1)
+endfunc
 
-	if len(g:tweak#wtb_switch#listed_buf_access_history)>0
-		let l:pos = len(g:tweak#wtb_switch#listed_buf_access_history)-1
+func! s:key_switch_buffer_before_bd(nr,list)
+	let g:tweak#wtb_switch#listedbuf_history = get(g:,'tweak#wtb_switch#listedbuf_history',[])
+
+	if len(g:tweak#wtb_switch#listedbuf_history)>0
+		let l:pos = len(g:tweak#wtb_switch#listedbuf_history)-1
 		while l:pos>=0
-			let l:nr=g:tweak#wtb_switch#listed_buf_access_history[l:pos]
+			let l:nr=g:tweak#wtb_switch#listedbuf_history[l:pos]
 			if l:nr!=a:nr && buflisted(l:nr)
-				call remove(g:tweak#wtb_switch#listed_buf_access_history,l:pos,-1)
+				call remove(g:tweak#wtb_switch#listedbuf_history,l:pos,-1)
 				return ":b " . l:nr . "\<CR>"
 			endif
 			let l:pos -= 1
