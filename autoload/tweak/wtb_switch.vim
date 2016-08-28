@@ -36,6 +36,7 @@ endfunc
 
 " Automatically select the window for buffer switching
 func! tweak#wtb_switch#key_switch_buffer_in_this_page(key)
+	call s:init()
 	if buflisted(winbufnr('.'))
 		return a:key
 	endif
