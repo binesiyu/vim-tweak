@@ -77,7 +77,9 @@ func! tweak#plug(plugDir)
 	TweakPlug 'gregsexton/gitv'
 	TweakPlug 'airblade/vim-gitgutter'
 
-	TweakPlug 'junegunn/vim-peekaboo'
+	" This plugin breaks the behavior of the . command
+	" remove it for now
+	" TweakPlug 'junegunn/vim-peekaboo'
 
 	TweakPlug 'roxma/vim-encode'
 	TweakPlug 'godlygeek/tabular'
