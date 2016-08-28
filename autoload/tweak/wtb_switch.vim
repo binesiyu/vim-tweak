@@ -152,19 +152,21 @@ func! tweak#wtb_switch#key_leader_bufnum(num,...)
 		endif
 	endfor
 
+	" no matches
+	if l:cnt==0
+		" echoerr is a bit annoying, use echohl instead
+		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = 0
+		echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
+		return
+	endif
+
 	let l:keepjumps = ''
 	if l:usePrefix && get(g:,'tweak#wtb_switch#key_leader_bufnum_tmpnr',0)
 		let l:keepjumps = 'keepjumps '
 		call s:listedbuf_history_remove_tail()
 	endif
 
-	" no matches
-	if l:cnt==0
-		" echoerr is a bit annoying, use echohl instead
-		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = 0
-		echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
-		return ''
-	elseif l:exact && l:cnt==1
+	if l:exact && l:cnt==1
 		" This is the only match
 		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = 0
 		return tweak#wtb_switch#key_switch_buffer_in_this_page(":" . l:keepjumps . " b " . l:input . "\<CR>")
