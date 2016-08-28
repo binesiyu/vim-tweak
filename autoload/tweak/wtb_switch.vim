@@ -110,16 +110,38 @@ func! tweak#wtb_switch#key_quit()
 	endif
 endfunc
 
-func! tweak#wtb_switch#key_leader_bufnum(num)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum) ''
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)1 tweak#wtb_switch#key_leader_bufnum(1,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)2 tweak#wtb_switch#key_leader_bufnum(2,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)3 tweak#wtb_switch#key_leader_bufnum(3,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)4 tweak#wtb_switch#key_leader_bufnum(4,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)5 tweak#wtb_switch#key_leader_bufnum(5,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)6 tweak#wtb_switch#key_leader_bufnum(6,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)7 tweak#wtb_switch#key_leader_bufnum(7,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)8 tweak#wtb_switch#key_leader_bufnum(8,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)9 tweak#wtb_switch#key_leader_bufnum(9,1)
+nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)0 tweak#wtb_switch#key_leader_bufnum(0,1)
+
+func! tweak#wtb_switch#key_leader_bufnum(num,...)
 	call s:init()
+
+	let l:usePrefix = get(a:,'1',0)
+	if l:usePrefix
+		let l:prefix = g:tweak#wtb_switch#key_leader_bufnum_prefix
+	else
+		let l:prefix = ''
+	endif
+
 	let l:buffers = s:listed_buffers()
-	let l:input = a:num . ""
+	let l:input = l:prefix . a:num . ""
+
+	let g:tweak#wtb_switch#key_leader_bufnum_prefix = l:input
 
 	while 1
 
 		let l:cnt = 0
 		let l:i=0
-		let l:exactCnt = 0
+		let l:exact = 0
 		" count matches
 		while l:i<len(l:buffers)
 			let l:bn = l:buffers[l:i] . ""
@@ -127,40 +149,26 @@ func! tweak#wtb_switch#key_leader_bufnum(num)
 				let l:cnt+=1
 			endif
 			if l:input == l:bn
-				let l:exactCnt+=1
+				let l:exact=1
 			endif
 			let l:i+=1
 		endwhile
 
 		" no matches
-		if l:cnt==0 && len(l:input)>0
+		if l:cnt==0
 			" echoerr is a bit annoying, use echohl instead
 			echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
 			return ''
-		elseif l:cnt==1 && l:exactCnt==1
-			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . "\<CR>")
+		elseif l:exact && l:cnt==1
+			" This is the only match
+			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . " \<CR>")
+		elseif l:exact && l:cnt>1
+			" There's an exact match, but we still needs futher input to verify
+			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . ' | call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)") ' . " \<CR>")
+		else 
+			" need further input
+			return tweak#wtb_switch#key_switch_buffer_in_this_page(':call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)") ' . " \<CR>")
 		endif
-
-		echo ":b " . l:input
-
-		let l:n = getchar()
-
-		if l:n==char2nr("\<BS>") ||  l:n==char2nr("\<C-h>")
-			" delete one word
-			if len(l:input)>=2
-				let l:input = l:input[0:len(l:input)-2]
-			else
-				let l:input = ""
-			endif
-		elseif l:n==char2nr("\<C-c>")
-			return ''
-		elseif l:n==char2nr("\<CR>") || (l:n<char2nr('0') || l:n>char2nr('9'))
-			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . "\<CR>")
-		else
-			let l:input = l:input . nr2char(l:n)
-		endif
-
-		let g:n = l:n
 
 	endwhile
 
@@ -205,48 +213,3 @@ func! s:key_switch_buffer_before_bd(nr,list)
 	endif
 endfunc
 
-
-" func! tweak#wtb_switch#key_bufer()
-" 	let l:shm     = &shortmess
-" 	let l:ch      = &cmdheight
-" 	try
-" 		let l:buffers = s:listed_buffers()
-" 
-" 		set shortmess=a
-" 		let &cmdheight=len(l:buffers)+1
-" 
-" 		let l:prompt  = join(map(l:buffers, 'tweak#wtb_switch#format_buffer(v:val)'),"\n")
-" 		echo l:prompt . "\nselect buffer: "
-" 		redraws!
-" 
-" 		let l:n = getchar()
-" 
-" 		echo ""
-" 		redraws!
-" 		return ":buffer " . nr2char(l:n) . "\<CR>"
-" 	finally
-" 		let &shortmess = l:shm
-" 		let &cmdheight = l:ch
-" 	endtry
-" endfunc
-" 
-" 
-" " copy from fzf.vim
-" func! tweak#wtb_switch#format_buffer(b)
-"   let name = bufname(a:b)
-"   let name = empty(name) ? 'No Name' : name
-"   let flag = a:b == bufnr('')  ? '%' :
-"           \ (a:b == bufnr('#') ? '#' : ' ')
-"   let modified = getbufvar(a:b, '&modified') ? ' [+]' : ''
-"   let readonly = getbufvar(a:b, '&modifiable') ? '' : ' [RO]'
-"   let extra = join(filter([modified, readonly], '!empty(v:val)'), '')
-"   return printf(" %-2d %-2s \"%s\" %s", a:b, flag, name, extra)
-" endfunc
-" 
-" function! s:strip(str)
-"   return substitute(a:str, '\v^\s*|\s*$', '', 'g')
-" endfunction
-
-
-
-" let bufs = map(s:listed_buffers(), 'tweak#wtb_switch#format_buffer(v:val)')
