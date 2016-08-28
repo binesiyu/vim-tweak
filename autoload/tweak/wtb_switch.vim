@@ -1,8 +1,22 @@
 " smart window/tab/buffer switching utilities
 " smart tab/buffer switching. nice integrated with airline
 " 
-" nnoremap <expr> <S-l> tweak#wtb_swtich#key_kext()
-" nnoremap <expr> <S-h> tweak#wtb_swtich#key_prev()
+" usage:
+" nnoremap <expr> <Leader>1 tweak#wtb_switch#key_leader_bufnum(1)
+" nnoremap <expr> <Leader>2 tweak#wtb_switch#key_leader_bufnum(2)
+" nnoremap <expr> <Leader>3 tweak#wtb_switch#key_leader_bufnum(3)
+" nnoremap <expr> <Leader>4 tweak#wtb_switch#key_leader_bufnum(4)
+" nnoremap <expr> <Leader>5 tweak#wtb_switch#key_leader_bufnum(5)
+" nnoremap <expr> <Leader>6 tweak#wtb_switch#key_leader_bufnum(6)
+" nnoremap <expr> <Leader>7 tweak#wtb_switch#key_leader_bufnum(7)
+" nnoremap <expr> <Leader>8 tweak#wtb_switch#key_leader_bufnum(8)
+" nnoremap <expr> <Leader>9 tweak#wtb_switch#key_leader_bufnum(9)
+" nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
+" nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
+" nnoremap <expr> <S-q>     tweak#wtb_switch#key_quit()
+"
+" others:
+" nnoremap <expr> <C-f><C-f> tweak#wtb_switch#key_switch_buffer_in_this_page(":FZF\<CR>")
 
 func! s:init()
 	if get(g:,'tweak#wtb_switch#init',0)==1
