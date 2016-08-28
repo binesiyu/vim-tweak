@@ -20,8 +20,8 @@ func! s:is_multi_tabpage()
 	return type(tabpagebuflist(tabpagenr()+1))==3 || type(tabpagebuflist(tabpagenr()-1))==3
 endfunc
 
-" auto select the window for buffer switching
-func! s:key_switch_buffer_in_this_page(key)
+" Automatically select the window for buffer switching
+func! tweak#wtb_switch#key_switch_buffer_in_this_page(key)
 	if buflisted(winbufnr('.'))
 		return a:key
 	endif
@@ -41,7 +41,11 @@ func! s:key_switch_buffer_in_this_page(key)
 	" Otherwise do nothing
 	if l:listedCnt == 1
 		return ":" . l:winnr . "windo echo \<CR>" . a:key
+	elseif l:listedCnt == 0
+		" we have no other option here :)
+		return key
 	else
+		echom "Please use a window with listed buffer for the switch!!!"
 		return ''
 	endif
 endfunc
@@ -51,7 +55,7 @@ func! tweak#wtb_switch#key_next()
 	if s:is_multi_tabpage()
 		return ":tabn\<CR>"
 	endif
-	return s:key_switch_buffer_in_this_page(":bn\<CR>")
+	return tweak#wtb_switch#key_switch_buffer_in_this_page(":bn\<CR>")
 endfunc
 
 func! tweak#wtb_switch#key_prev()
@@ -59,7 +63,7 @@ func! tweak#wtb_switch#key_prev()
 	if s:is_multi_tabpage()
 		return ":tabp\<CR>"
 	endif
-	return s:key_switch_buffer_in_this_page(":bp\<CR>")
+	return tweak#wtb_switch#key_switch_buffer_in_this_page(":bp\<CR>")
 endfunc
 
 func! tweak#wtb_switch#key_quit()
@@ -134,7 +138,7 @@ func! tweak#wtb_switch#key_leader_bufnum(num)
 			echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
 			return ''
 		elseif l:cnt==1 && l:exactCnt==1
-			return s:key_switch_buffer_in_this_page(":b " . l:input . "\<CR>")
+			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . "\<CR>")
 		endif
 
 		echo ":b " . l:input
@@ -151,7 +155,7 @@ func! tweak#wtb_switch#key_leader_bufnum(num)
 		elseif l:n==char2nr("\<C-c>")
 			return ''
 		elseif l:n==char2nr("\<CR>") || (l:n<char2nr('0') || l:n>char2nr('9'))
-			return s:key_switch_buffer_in_this_page(":b " . l:input . "\<CR>")
+			return tweak#wtb_switch#key_switch_buffer_in_this_page(":b " . l:input . "\<CR>")
 		else
 			let l:input = l:input . nr2char(l:n)
 		endif
