@@ -482,15 +482,15 @@ func! tweak#fzf()
 	let g:fzf_command_prefix = 'FZF'
 
 	" fzf files
-	nnoremap <C-f><C-f> :FZF<CR>
-	nnoremap <C-f>f     :FZF<CR>
-	nnoremap <Leader>f  :FZF<CR>
+	nnoremap <expr> <C-f><C-f> tweak#wtb_switch#key_switch_buffer_in_this_page(":FZF\<CR>")
+	nnoremap <expr> <C-f>f     tweak#wtb_switch#key_switch_buffer_in_this_page(":FZF\<CR>")
+	nnoremap <expr> <Leader>f  tweak#wtb_switch#key_switch_buffer_in_this_page(":FZF\<CR>")
 
 	" Recently opened files
-	nnoremap <C-f><C-r> :FZFHistory<CR>
-	nnoremap <C-f>r     :FZFHistory<CR>
-	nnoremap <C-f><C-h> :FZFHistory<CR>
-	nnoremap <C-f>h     :FZFHistory<CR>
+	nnoremap <expr> <C-f><C-r> tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFHistory\<CR>")
+	nnoremap <expr> <C-f>r     tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFHistory\<CR>")
+	nnoremap <expr> <C-f><C-h> tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFHistory\<CR>")
+	nnoremap <expr> <C-f>h     tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFHistory\<CR>")
 
 	nnoremap <C-f><C-m> :FZFMaps<CR>
 	nnoremap <C-f>m     :FZFMaps<CR>
@@ -500,13 +500,13 @@ func! tweak#fzf()
 	nnoremap <C-f>c     :FZFCommands<CR>
 
 	" Buffers
-	nnoremap <C-f><C-b> :FZFBuffers<CR>
-	nnoremap <C-f>b     :FZFBuffers<CR>
-	nnoremap <C-b>      :FZFBuffers<CR>
+	nnoremap <expr> <C-f><C-b> tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFBuffers\<CR>")
+	nnoremap <expr> <C-f>b     tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFBuffers\<CR>")
+	nnoremap <expr> <C-b>      tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFBuffers\<CR>")
 
 	" lines
-	nnoremap <C-f>l  	 :FZFLines<CR>
-	nnoremap <C-f><C-l>  :FZFLines<CR>
+	nnoremap <expr> <C-f>l  	 tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFLines\<CR>")
+	nnoremap <expr> <C-f><C-l>  tweak#wtb_switch#key_switch_buffer_in_this_page(":FZFLines\<CR>")
 
 	nnoremap <C-f>/  	 :FZFBLines<CR>
 	" vim can't recognize
@@ -516,8 +516,8 @@ func! tweak#fzf()
 	nnoremap <C-f>:  	 :FZFCommands<CR>
 
 	" fzf ag
-	nnoremap <expr> <C-f>a  	 ':FZFAg '
-	nnoremap <expr> <C-f><C-a>   ':FZFAg '
+	nnoremap <expr> <C-f>a  	 tweak#wtb_switch#key_switch_buffer_in_this_page(':FZFAg ')
+	nnoremap <expr> <C-f><C-a>   tweak#wtb_switch#key_switch_buffer_in_this_page(':FZFAg ')
 
 endfunc
 
