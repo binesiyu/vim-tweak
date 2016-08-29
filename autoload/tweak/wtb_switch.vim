@@ -137,8 +137,6 @@ nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)8 tweak#wtb_switch#key
 nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)9 tweak#wtb_switch#key_leader_bufnum(9,1)
 nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)0 tweak#wtb_switch#key_leader_bufnum(0,1)
 
-" TODO: keepjumps for tempory jumps
-" TODO: lock buffer history for tempory jumps
 
 func! tweak#wtb_switch#key_leader_bufnum(num,...)
 	call s:init()
@@ -148,6 +146,7 @@ func! tweak#wtb_switch#key_leader_bufnum(num,...)
 		let l:prefix = g:tweak#wtb_switch#key_leader_bufnum_prefix
 	else
 		let l:prefix = ''
+		let g:tweak#wtb_switch#key_leader_bufnum_start_nr = bufnr('%')
 	endif
 
 	let l:input = l:prefix . a:num . ""
@@ -172,26 +171,28 @@ func! tweak#wtb_switch#key_leader_bufnum(num,...)
 		" echoerr is a bit annoying, use echohl instead
 		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = 0
 		echohl WarningMsg | echo "No buffer [" . l:input . "]" | echohl None
-		return
+		return ''
+	elseif l:exact==0
+		" need more input
+		return tweak#wtb_switch#key_switch_buffer_in_this_page(':call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)")' . "\<CR>")
 	endif
 
 	let l:keepjumps = ''
+	let l:setOldfile = ''
 	if l:usePrefix && get(g:,'tweak#wtb_switch#key_leader_bufnum_tmpnr',0)
+		call s:listedbuf_history_remove_tail(g:tweak#wtb_switch#key_leader_bufnum_start_nr)
 		let l:keepjumps = 'keepjumps '
-		call s:listedbuf_history_remove_tail()
+		let l:setOldfile = ' | let @# =' . g:tweak#wtb_switch#key_leader_bufnum_start_nr
 	endif
 
 	if l:exact && l:cnt==1
 		" This is the only match
 		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = 0
-		return tweak#wtb_switch#key_switch_buffer_in_this_page(":" . l:keepjumps . " b " . l:input . "\<CR>")
+		return tweak#wtb_switch#key_switch_buffer_in_this_page(":" . l:keepjumps . " b " . l:input . l:setOldfile . "\<CR>")
 	elseif l:exact && l:cnt>1
 		" There's an exact match, but we still needs more input to verify
 		let g:tweak#wtb_switch#key_leader_bufnum_tmpnr = l:input
-		return tweak#wtb_switch#key_switch_buffer_in_this_page(":" . l:keepjumps . " b " . l:input . ' | call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)")' . "\<CR>")
-	else 
-		" need more input
-		return tweak#wtb_switch#key_switch_buffer_in_this_page(':call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)")' . "\<CR>")
+		return tweak#wtb_switch#key_switch_buffer_in_this_page(":" . l:keepjumps . " b " . l:input . ' | call feedkeys("\<Plug>(tweak#wtb_switch#key_leader_bufnum)")' . l:setOldfile . "\<CR>")
 	endif
 
 endfunc
@@ -216,8 +217,13 @@ func! s:buf_win_enter()
 	endif
 endfunc
 
-func! s:listedbuf_history_remove_tail()
-	call remove(g:tweak#wtb_switch#listedbuf_history,-1)
+func! s:listedbuf_history_remove_tail(tillNr)
+	if len(g:tweak#wtb_switch#listedbuf_history)==0
+		return
+	endif
+	if g:tweak#wtb_switch#listedbuf_history[-1]!=a:tillNr
+		call remove(g:tweak#wtb_switch#listedbuf_history,-1)
+	endif
 endfunc
 
 func! s:key_switch_buffer_before_bd(nr,list)
