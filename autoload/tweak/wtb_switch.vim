@@ -108,7 +108,7 @@ func! tweak#wtb_switch#key_quit()
 			" delete the buffer
 			" otherwise, close the window
 			if buflisted(l:nr) && (l:listedCnt==1)
-				return s:key_switch_buffer_before_bd(l:nr,l:list) . ":bd " . l:nr . "\<CR>"
+				return s:key_switch_buffer_before_bd(l:nr,l:list) . ":try | bd " . l:nr . " | catch | b " . l:nr . " | endtry\<CR>"
 			else
 				return ":q\<CR>"
 			endif
@@ -117,7 +117,7 @@ func! tweak#wtb_switch#key_quit()
 				" if this is the only listed buffer
 				return ":q\<CR>"
 			else
-				return s:key_switch_buffer_before_bd(l:nr,l:list) . ":bd " . l:nr . "\<CR>"
+				return s:key_switch_buffer_before_bd(l:nr,l:list) . ":try | bd " . l:nr . " | catch | b " . l:nr . " | endtry\<CR>"
 			endif
 		endif
 	else
