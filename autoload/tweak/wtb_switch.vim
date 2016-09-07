@@ -58,7 +58,7 @@ func! tweak#wtb_switch#key_switch_buffer_in_this_page(key)
 		return ":" . l:winnr . "windo echo \<CR>" . a:key
 	elseif l:listedCnt == 0
 		" we have no other option here :)
-		return key
+		return a:key
 	else
 		echom "Please use a window with listed buffer for the switch!!!"
 		return ''
@@ -157,14 +157,24 @@ func! tweak#wtb_switch#key_leader_bufnum(num,...)
 	let l:exact = 0
 	" count matches
 	let l:buffers = s:listed_buffers()
-	for l:bn in l:buffers
-		if l:input==l:bn[0:len(l:input)-1]
-			let l:cnt+=1
+	if l:input=='$' || l:input=='^'
+		if l:input=='$'
+			let l:input=l:buffers[-1]
+		else
+			let l:input=l:buffers[0]
 		endif
-		if l:input == l:bn
-			let l:exact=1
-		endif
-	endfor
+		let l:cnt=1
+		let l:exact=1
+	else
+		for l:bn in l:buffers
+			if l:input==l:bn[0:len(l:input)-1]
+				let l:cnt+=1
+			endif
+			if l:input == l:bn
+				let l:exact=1
+			endif
+		endfor
+	endif
 
 	" no matches
 	if l:cnt==0

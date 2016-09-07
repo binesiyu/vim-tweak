@@ -67,6 +67,10 @@ func! tweak#plug(plugDir)
 
 	TweakPlug 'simeji/winresizer'
 	TweakPlug 'bling/vim-airline'
+	" TweakPlug 'itchyny/lightline.vim'
+	
+	" This plugin significantly slows down vim
+	" TweakPlug 'severin-lemaignan/vim-minimap'
 
 	" I use my own simple configuration, don't need this plugin anymore
 	" TweakPlug 'edkolev/tmuxline.vim'
@@ -130,6 +134,9 @@ func! tweak#plug(plugDir)
 	" html
 	TweakPlug 'othree/html5.vim'
 	TweakPlug 'mattn/emmet-vim'
+	" uml, interesting
+	" TweakPlug 'aklt/plantuml-syntax'
+	" TweakPlug 'scrooloose/vim-slumlord'
 
 
 	TweakPlug 'tmux-plugins/vim-tmux-focus-events'
@@ -238,6 +245,8 @@ func! tweak#bootstrap(...)
 	nnoremap <expr> <Leader>7 tweak#wtb_switch#key_leader_bufnum(7)
 	nnoremap <expr> <Leader>8 tweak#wtb_switch#key_leader_bufnum(8)
 	nnoremap <expr> <Leader>9 tweak#wtb_switch#key_leader_bufnum(9)
+	nnoremap <expr> <Leader>$ tweak#wtb_switch#key_leader_bufnum('$')
+	nnoremap <expr> <Leader>^ tweak#wtb_switch#key_leader_bufnum('^')
 	nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
 	nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
 	nnoremap <expr> <S-q>     tweak#wtb_switch#key_quit()
@@ -424,6 +433,7 @@ func! tweak#bootstrap(...)
 	""""
 
 	TweakForPlug 'bling/vim-airline'                call tweak#airline()
+	TweakForPlug 'bling/vim-lightline'              call tweak#lightline()
 	TweakForPlug 'majutsushi/tagbar'                call tweak#tagbar()
 	TweakForPlug 'scrooloose/nerdtree'              call tweak#nerdtree()
 	TweakForPlug 'junegunn/fzf.vim'                 call tweak#fzf()
@@ -449,6 +459,15 @@ func! tweak#airline()
 	set laststatus=2
 	let g:airline#extensions#capslock#enabled = 1
 	"let g:airline_section_b = '%{&expandtab?"et":"noet"}'
+endfunc
+
+func! tweak#lightline()
+	let g:lightline = {
+				\ 'colorscheme': 'gruvbox',
+				\	'component': {
+				\	  'readonly': '%{&readonly}"⭤":""}',
+				\	}
+				\ }
 endfunc
 
 func! tweak#tagbar()
