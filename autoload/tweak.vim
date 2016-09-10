@@ -118,6 +118,7 @@ func! tweak#plug(plugDir)
 	" for the enhanced <Leader>* key
 	TweakPlug 'haya14busa/vim-asterisk'
 	TweakPlug 'dyng/ctrlsf.vim'
+	TweakPlug 'pelodelfuego/vim-swoop'
 
 	" markdown
 	TweakPlug 'plasticboy/vim-markdown'
@@ -321,6 +322,11 @@ func! tweak#bootstrap(...)
 	" visual mode asterisk search
 	TweakForPlug 'haya14busa/vim-asterisk' vmap * <Plug>(asterisk-*)
 	TweakForPlug 'haya14busa/vim-asterisk' vmap # <Plug>(asterisk-#)
+
+	" Thanks to https://yuez.me/vim-ji-qiao/
+	" n always for searching down, N always for searching up
+	nnoremap <expr> n  'Nn'[v:searchforward]
+	nnoremap <expr> N  'nN'[v:searchforward]
 
 	"   use ':' so that we could found the previous search string in history command
 	"   '\c' case insensitive
