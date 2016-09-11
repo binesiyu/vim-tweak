@@ -264,10 +264,10 @@ func! tweak#bootstrap(...)
 	" hi TabLineFill     term=reverse cterm=reverse
 
 	" more handy way of switching between split windows
-	nnoremap <C-h>  <C-w>h
-	nnoremap <C-j>  <C-w>j
-	nnoremap <C-k>  <C-w>k
-	nnoremap <C-l>  <C-w>l
+	nnoremap <Leader>h  <C-w>h
+	nnoremap <Leader>j  <C-w>j
+	nnoremap <Leader>k  <C-w>k
+	nnoremap <Leader>l  <C-w>l
 
 	"
 	" }
@@ -336,6 +336,8 @@ func! tweak#bootstrap(...)
 	" clean last pattern to avoid highlighting
 	" :help last-pattern
 	nnoremap <ESC><ESC> :let @/ = ""<CR>
+	nnoremap <expr> <C-l> ":nohlsearch \<CR>:diffupdate \<CR>: syntax sync fromstart\<cr>\<c-l>"
+
 
 	" enable incremental search 
 	set incsearch
@@ -454,6 +456,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'simeji/winresizer'                call tweak#winresizer()
 	TweakForPlug 'Valloric/YouCompleteMe'           call tweak#YouCompleteMe()
 	TweakForPlug 'tpope/vim-surround'               call tweak#surround()
+	TweakForPlug 'pelodelfuego/vim-swoop'           let g:swoopUseDefaultKeyMap = 0
 
 endfunc
 
