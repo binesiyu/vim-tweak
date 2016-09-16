@@ -457,6 +457,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'Valloric/YouCompleteMe'           call tweak#YouCompleteMe()
 	TweakForPlug 'tpope/vim-surround'               call tweak#surround()
 	TweakForPlug 'pelodelfuego/vim-swoop'           let g:swoopUseDefaultKeyMap = 0
+	TweakForPlug 'airblade/vim-gitgutter'           let g:gitgutter_map_keys = 0
 
 endfunc
 
