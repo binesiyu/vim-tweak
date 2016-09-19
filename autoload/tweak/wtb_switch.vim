@@ -84,6 +84,10 @@ endfunc
 func! tweak#wtb_switch#key_quit()
 	call s:init()
 
+	if s:is_multi_tabpage()
+		return ":tabclose\<CR>"
+	endif
+
 	let l:list = filter(range(1, bufnr('$')), 'buflisted(v:val)')
 	let l:nr = bufnr('%')
 	if len(l:list)>1
