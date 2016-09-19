@@ -31,7 +31,7 @@ endfunc
 
 func! s:is_multi_tabpage()
 	call s:init()
-	return type(tabpagebuflist(tabpagenr()+1))==3 || type(tabpagebuflist(tabpagenr()-1))==3
+	return tabpagenr("$")>1
 endfunc
 
 " Automatically select the window for buffer switching
