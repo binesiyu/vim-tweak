@@ -31,7 +31,7 @@ endfunc
 
 func! s:is_multi_tabpage()
 	call s:init()
-	return type(tabpagebuflist(tabpagenr()+1))==3 || type(tabpagebuflist(tabpagenr()-1))==3
+	return tabpagenr("$")>1
 endfunc
 
 " Automatically select the window for buffer switching
@@ -83,6 +83,10 @@ endfunc
 
 func! tweak#wtb_switch#key_quit()
 	call s:init()
+
+	if s:is_multi_tabpage()
+		return ":tabclose\<CR>"
+	endif
 
 	let l:list = filter(range(1, bufnr('$')), 'buflisted(v:val)')
 	let l:nr = bufnr('%')
