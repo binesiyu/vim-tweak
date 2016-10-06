@@ -68,6 +68,9 @@ func! tweak#plug(plugDir)
 	TweakPlug 'simeji/winresizer'
 	TweakPlug 'bling/vim-airline'
 	" TweakPlug 'itchyny/lightline.vim'
+
+	" Get highlighted feedback when yanking
+	TweakPlug 'machakann/vim-highlightedyank'
 	
 	" This plugin significantly slows down vim
 	" TweakPlug 'severin-lemaignan/vim-minimap'
