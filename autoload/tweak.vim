@@ -243,17 +243,7 @@ func! tweak#bootstrap(...)
 
 	" NOTE: this is wierd, the follow ing command is invalid:
 	" nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()==3))||(type(tabpagebuflist(tabpagenr()-1))==3)) ? ":tabn\<CR>"  : ":bn\<CR>" )
-	nnoremap <expr> <Leader>1 tweak#wtb_switch#key_leader_bufnum(1)
-	nnoremap <expr> <Leader>2 tweak#wtb_switch#key_leader_bufnum(2)
-	nnoremap <expr> <Leader>3 tweak#wtb_switch#key_leader_bufnum(3)
-	nnoremap <expr> <Leader>4 tweak#wtb_switch#key_leader_bufnum(4)
-	nnoremap <expr> <Leader>5 tweak#wtb_switch#key_leader_bufnum(5)
-	nnoremap <expr> <Leader>6 tweak#wtb_switch#key_leader_bufnum(6)
-	nnoremap <expr> <Leader>7 tweak#wtb_switch#key_leader_bufnum(7)
-	nnoremap <expr> <Leader>8 tweak#wtb_switch#key_leader_bufnum(8)
-	nnoremap <expr> <Leader>9 tweak#wtb_switch#key_leader_bufnum(9)
-	nnoremap <expr> <Leader>$ tweak#wtb_switch#key_leader_bufnum('$')
-	nnoremap <expr> <Leader>^ tweak#wtb_switch#key_leader_bufnum('^')
+	nnoremap <expr> - tweak#wtb_switch#key_leader_bufnum(v:count)
 	nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
 	nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
 	nnoremap <expr> <S-q>     tweak#wtb_switch#key_quit()
@@ -294,7 +284,7 @@ func! tweak#bootstrap(...)
 	nnoremap <expr> <C-d> winheight(0)/3 . '<C-e>'
 
 	" the m key is taken by easymotion
-	noremap - m
+	" noremap - m
 	" ` is more precise than '
 	noremap ' `
 

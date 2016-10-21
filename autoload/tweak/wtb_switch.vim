@@ -130,16 +130,16 @@ func! tweak#wtb_switch#key_quit()
 endfunc
 
 nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum) ''
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)1 tweak#wtb_switch#key_leader_bufnum(1,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)2 tweak#wtb_switch#key_leader_bufnum(2,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)3 tweak#wtb_switch#key_leader_bufnum(3,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)4 tweak#wtb_switch#key_leader_bufnum(4,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)5 tweak#wtb_switch#key_leader_bufnum(5,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)6 tweak#wtb_switch#key_leader_bufnum(6,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)7 tweak#wtb_switch#key_leader_bufnum(7,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)8 tweak#wtb_switch#key_leader_bufnum(8,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)9 tweak#wtb_switch#key_leader_bufnum(9,1)
-nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)0 tweak#wtb_switch#key_leader_bufnum(0,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)1 tweak#wtb_switch#key_leader_bufnum(1,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)2 tweak#wtb_switch#key_leader_bufnum(2,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)3 tweak#wtb_switch#key_leader_bufnum(3,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)4 tweak#wtb_switch#key_leader_bufnum(4,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)5 tweak#wtb_switch#key_leader_bufnum(5,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)6 tweak#wtb_switch#key_leader_bufnum(6,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)7 tweak#wtb_switch#key_leader_bufnum(7,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)8 tweak#wtb_switch#key_leader_bufnum(8,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)9 tweak#wtb_switch#key_leader_bufnum(9,1)
+" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)0 tweak#wtb_switch#key_leader_bufnum(0,1)
 
 
 func! tweak#wtb_switch#key_leader_bufnum(num,...)
