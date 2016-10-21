@@ -123,8 +123,8 @@ func! tweak#plug(plugDir)
 	TweakPlug 'junegunn/fzf.vim'
 	" for the enhanced <Leader>* key
 	TweakPlug 'haya14busa/vim-asterisk'
-	TweakPlug 'dyng/ctrlsf.vim'
-	TweakPlug 'pelodelfuego/vim-swoop'
+	" TweakPlug 'dyng/ctrlsf.vim'
+	" TweakPlug 'pelodelfuego/vim-swoop'
 
 	" markdown
 	TweakPlug 'plasticboy/vim-markdown'
