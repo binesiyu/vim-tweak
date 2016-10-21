@@ -342,7 +342,7 @@ func! tweak#bootstrap(...)
 	" clean last pattern to avoid highlighting
 	" :help last-pattern
 	nnoremap <ESC><ESC> :let @/ = ""<CR>
-	nnoremap <expr> <C-l> ":nohlsearch \<CR>:diffupdate \<CR>: syntax sync fromstart\<cr>\<c-l>"
+	nnoremap <expr> <C-l> ":nohlsearch \| diffupdate \| syntax sync fromstart \| echo synIDattr(synID(line('.'), col('.'), 1), 'name') \<cr>"
 
 
 	" enable incremental search 
