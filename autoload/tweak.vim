@@ -342,7 +342,7 @@ func! tweak#bootstrap(...)
 	" clean last pattern to avoid highlighting
 	" :help last-pattern
 	nnoremap <ESC><ESC> :let @/ = ""<CR>
-	nnoremap <expr> <C-l> ":nohlsearch \| diffupdate \| syntax sync fromstart \| echo synIDattr(synID(line('.'), col('.'), 1), 'name') \<cr>"
+	nnoremap <expr> <C-l> ":nohlsearch \| diffupdate \| syntax sync fromstart \| echo map(synstack(line(\".\"),col(\".\")),'synIDattr(v:val,\"name\")') \<cr>"
 
 
 	" enable incremental search 
@@ -451,7 +451,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'majutsushi/tagbar'                call tweak#tagbar()
 	TweakForPlug 'scrooloose/nerdtree'              call tweak#nerdtree()
 	TweakForPlug 'junegunn/fzf.vim'                 call tweak#fzf()
-	TweakForPlug 'roxma/SimpleAutoComplPop'         call tweak#SimpleAutoComplPop()
+	" TweakForPlug 'roxma/SimpleAutoComplPop'         call tweak#SimpleAutoComplPop()
 	TweakForPlug 'altercation/vim-colors-solarized' call tweak#solarized()
 	TweakForPlug 'scrooloose/syntastic'             call tweak#syntastic()
 	TweakForPlug 'neomake/neomake'					call tweak#neomake()
