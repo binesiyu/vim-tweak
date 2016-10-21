@@ -105,7 +105,8 @@ func! tweak#plug(plugDir)
 
 	" YouCompleteMe slow down vim's start time, replace it with SimpleAutoComplPop
 	" TweakPlug 'Valloric/YouCompleteMe'
-	TweakPlug 'scrooloose/syntastic'
+	" TweakPlug 'scrooloose/syntastic'
+	TweakPlug 'neomake/neomake'
 	TweakPlug 'roxma/SimpleAutoComplPop'
 	" TweakPlug 'jiangmiao/auto-pairs'
 
@@ -135,10 +136,10 @@ func! tweak#plug(plugDir)
 	" vim go
 	TweakPlug 'fatih/vim-go'
 
-	" web front-end
-	TweakPlug 'jelera/vim-javascript-syntax'
-	" html
-	TweakPlug 'othree/html5.vim'
+	" web front-end, disabled by polyglot
+	" TweakPlug 'jelera/vim-javascript-syntax'
+	" html syntaxed, it's inside polyglot
+	" TweakPlug 'othree/html5.vim'
 	TweakPlug 'mattn/emmet-vim'
 	" uml, interesting
 	" TweakPlug 'aklt/plantuml-syntax'
@@ -453,6 +454,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'roxma/SimpleAutoComplPop'         call tweak#SimpleAutoComplPop()
 	TweakForPlug 'altercation/vim-colors-solarized' call tweak#solarized()
 	TweakForPlug 'scrooloose/syntastic'             call tweak#syntastic()
+	TweakForPlug 'neomake/neomake'					call tweak#neomake()
 	TweakForPlug 'ctrlpvim/ctrlp.vim'               call tweak#ctrlp()
 	TweakForPlug 'Lokaltog/vim-easymotion'          call tweak#easymotion()
 	TweakForPlug 'fatih/vim-go'                     call tweak#go()
@@ -605,6 +607,15 @@ func! tweak#syntastic()
 	let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 	let g:go_list_type = "quickfix"
 	let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+endfunc
+
+func! tweak#neomake()
+	let g:neomake_open_list = 2
+	autocmd! BufWritePost * Neomake
+	" A value of 2 will
+	" preserve the cursor position when the |location-list| or |quickfix|
+	" window is
+	" opened.
 endfunc
 
 func! tweak#ctrlp()
