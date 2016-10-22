@@ -436,8 +436,8 @@ func! tweak#bootstrap(...)
 	
 
 	" smart tab for auto complete
-	" inoremap <expr> <silent> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
-	" inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<TAB>"
+	inoremap <expr> <silent> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
+	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<TAB>"
 
 	" }
 	""""
