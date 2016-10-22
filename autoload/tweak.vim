@@ -152,6 +152,11 @@ func! tweak#plug(plugDir)
 	TweakPlug 'tmux-plugins/vim-tmux-focus-events'
 	TweakPlug 'roxma/vim-tmux-clipboard'
 
+	" Track the engine.
+	TweakPlug 'SirVer/ultisnips'
+	" Snippets are separated from the engine. Add this if you want them:
+	TweakPlug 'honza/vim-snippets'
+
 	" crashes if no man page found
 	" TweakPlug 'jez/vim-superman'
 
@@ -431,8 +436,8 @@ func! tweak#bootstrap(...)
 	
 
 	" smart tab for auto complete
-	inoremap <expr> <silent> <TAB>  pumvisible()?"\<C-n>":"\<TAB>"
-	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<TAB>"
+	" inoremap <expr> <silent> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
+	" inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<TAB>"
 
 	" }
 	""""
@@ -463,6 +468,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'tpope/vim-surround'               call tweak#surround()
 	TweakForPlug 'pelodelfuego/vim-swoop'           let g:swoopUseDefaultKeyMap = 0
 	TweakForPlug 'airblade/vim-gitgutter'           let g:gitgutter_map_keys = 0
+	TweakForPlug 'SirVer/ultisnips'                 call tweak#ultisnip()
 
 endfunc
 
@@ -684,6 +690,12 @@ func! tweak#surround()
 	nmap cs  <Plug>Csurround
 	nmap  s  <Plug>Ysurround
 	xmap  s  <Plug>VSurround
+endfunc
+
+func! tweak#ultisnip()
+	let g:UltiSnipsExpandTrigger = "<c-g>"
+	let g:UltiSnipsJumpForwardTrigger="<c-j>"
+	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 endfunc
 
 " ""
