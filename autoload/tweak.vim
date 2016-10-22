@@ -107,7 +107,8 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'Valloric/YouCompleteMe'
 	" TweakPlug 'scrooloose/syntastic'
 	TweakPlug 'neomake/neomake'
-	TweakPlug 'roxma/SimpleAutoComplPop'
+	" TweakPlug 'roxma/SimpleAutoComplPop'
+	TweakPlug 'roxma/vim-syntax-compl-pop'
 	" TweakPlug 'jiangmiao/auto-pairs'
 
 	TweakPlug 'majutsushi/tagbar'
@@ -141,6 +142,8 @@ func! tweak#plug(plugDir)
 	" html syntaxed, it's inside polyglot
 	" TweakPlug 'othree/html5.vim'
 	TweakPlug 'mattn/emmet-vim'
+	TweakPlug 'ternjs/tern_for_vim', { 'do': 'npm install' } " only install fzf for vim
+
 	" uml, interesting
 	" TweakPlug 'aklt/plantuml-syntax'
 	" TweakPlug 'scrooloose/vim-slumlord'
@@ -425,6 +428,11 @@ func! tweak#bootstrap(...)
 	" <C-P> <Up>
 	" <C-N> <Down>
 	" <C-E> <End>
+	
+
+	" smart tab for auto complete
+	inoremap <expr> <silent> <TAB>  pumvisible()?"\<C-n>":"\<TAB>"
+	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<TAB>"
 
 	" }
 	""""
