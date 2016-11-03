@@ -434,10 +434,11 @@ func! tweak#bootstrap(...)
 	" <C-N> <Down>
 	" <C-E> <End>
 	
-
 	" smart tab for auto complete
 	inoremap <expr> <silent> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
 	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<TAB>"
+
+	set completeopt=menu,menuone,longest
 
 	" }
 	""""
