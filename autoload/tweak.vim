@@ -399,7 +399,13 @@ func! tweak#bootstrap(...)
 	" auto wraping in text files
 	" fo+=t enable auto wraping
 	" fo+=a enable auto wraping for paragraph
-	autocmd FileType text,markdown setlocal tw=79 | setlocal fo+=t | setlocal tabstop=4 | setlocal softtabstop=4 | setlocal shiftwidth=4 | setlocal  expandtab
+	autocmd FileType text,markdown setlocal tw=78 | setlocal fo+=t | setlocal tabstop=4 | setlocal softtabstop=4 | setlocal shiftwidth=4 | setlocal  expandtab
+	" markdown list leader (-) and (+) will not be auto inserted like a
+	" comment leader. This helps auto formatting for a long list line with
+	" 'gq'.
+	autocmd FileType markdown      setlocal comments-=b:- | setlocal comments-=b:+
+	" auto insert '\' as a comment leader
+	autocmd FileType vim           setlocal comments+=b:\
 
 	" indentation
 	set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set noexpandtab
