@@ -137,6 +137,9 @@ func! tweak#plug(plugDir)
 	" vim go
 	TweakPlug 'fatih/vim-go'
 
+	" vim python completion
+	TweakPlug 'davidhalter/jedi-vim'
+
 	" web front-end, disabled by polyglot
 	" TweakPlug 'jelera/vim-javascript-syntax'
 	" html syntaxed, it's inside polyglot
@@ -469,6 +472,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'ctrlpvim/ctrlp.vim'               call tweak#ctrlp()
 	TweakForPlug 'Lokaltog/vim-easymotion'          call tweak#easymotion()
 	TweakForPlug 'fatih/vim-go'                     call tweak#go()
+	TweakForPlug 'davidhalter/jedi-vim'             call tweak#jedi()
 	TweakForPlug 'plasticboy/vim-markdown'          call tweak#markdown()
 	TweakForPlug 'christoomey/vim-tmux-navigator'   call tweak#vim_tmux_navigator()
 	TweakForPlug 'simeji/winresizer'                call tweak#winresizer()
@@ -663,6 +667,11 @@ func! tweak#go()
 	" autocmd FileType go nmap <buffer>  <C-w><C-]> <Plug>(go-def-split)
 	autocmd FileType go nnoremap <buffer> <silent> <C-w><C-]> :<C-u>call go#def#Jump("split")<CR>
 	" autocmd FileType go nnoremap <buffer> <C-w><C-]> :<C-u>call go#def#Jump("split")<CR>
+endfunc
+
+func! tweak#jedi()
+	let g:jedi#auto_initialization = 0
+	let g:jedi#auto_vim_configuration = 0
 endfunc
 
 func! tweak#markdown()
