@@ -160,6 +160,8 @@ func! tweak#plug(plugDir)
 	" Snippets are separated from the engine. Add this if you want them:
 	TweakPlug 'honza/vim-snippets'
 
+	TweakPlug 'metakirby5/codi.vim'
+
 	" crashes if no man page found
 	" TweakPlug 'jez/vim-superman'
 
