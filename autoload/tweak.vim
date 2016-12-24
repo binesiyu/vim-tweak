@@ -675,6 +675,7 @@ func! tweak#jedi()
 	let g:jedi#auto_initialization = 0
 	let g:jedi#auto_vim_configuration = 0
 	let g:jedi#show_call_signatures = 0
+	autocmd FileType python nmap <buffer> <C-]> :call jedi#goto_definitions()<CR>
 endfunc
 
 func! tweak#markdown()
