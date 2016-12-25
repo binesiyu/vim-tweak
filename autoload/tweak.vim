@@ -416,7 +416,7 @@ func! tweak#bootstrap(...)
 	set tabstop=4 | set softtabstop=4 | set shiftwidth=4 | set noexpandtab
 	" cpp indentation, use google style
 	autocmd FileType cpp,c,cxx,h,hpp setlocal tabstop=2| setlocal softtabstop=2| setlocal shiftwidth=2 | setlocal expandtab
-	autocmd FileType html,javascript setlocal tabstop=2 | setlocal softtabstop=2 | setlocal shiftwidth=2 | setlocal  expandtab
+	autocmd FileType html*,javascript* setlocal tabstop=2 | setlocal softtabstop=2 | setlocal shiftwidth=2 | setlocal  expandtab
 	" php indentation standard, check this out: http://www.php-fig.org/psr/psr-2/#2-4-indenting
 	autocmd FileType php             let &l:tabstop= (bufname('%')=~'blade.php$'?2:4) | let &l:softtabstop=&l:tabstop | let &l:shiftwidth=&l:tabstop | setlocal expandtab
 
