@@ -85,6 +85,7 @@ func! tweak#plug(plugDir)
 	TweakPlug 'airblade/vim-gitgutter'
 
 	TweakPlug 'sheerun/vim-polyglot'
+	TweakPlug 'Glench/Vim-Jinja2-Syntax'
 
 	" This plugin breaks the behavior of the . command
 	" remove it for now
