@@ -379,7 +379,7 @@ func! tweak#bootstrap(...)
 
 	" inspired by kakoune's alt-i and alt-a key
 	nnoremap s vi
-	nnoremap S vA
+	nnoremap S va
 
 	" `u` is the undo key in normal mode
 	" `U` would be more intuitive to be the redo key.
