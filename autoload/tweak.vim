@@ -71,6 +71,8 @@ func! tweak#plug(plugDir)
 
 	" Get highlighted feedback when yanking
 	TweakPlug 'machakann/vim-highlightedyank'
+
+	" TweakPlug 'yuttie/comfortable-motion.vim'
 	
 	" This plugin significantly slows down vim
 	" TweakPlug 'severin-lemaignan/vim-minimap'
@@ -374,7 +376,10 @@ func! tweak#bootstrap(...)
 
 	" save
 	nnoremap <C-s> :w<CR>
-	nnoremap S :w<CR>
+
+	" inspired by kakoune's alt-i and alt-a key
+	nnoremap s vi
+	nnoremap S vA
 
 	" `u` is the undo key in normal mode
 	" `U` would be more intuitive to be the redo key.
@@ -710,7 +715,7 @@ func! tweak#surround()
 	" s instead of ys, feels more consistence
 	nmap ds  <Plug>Dsurround
 	nmap cs  <Plug>Csurround
-	nmap  s  <Plug>Ysurround
+	" nmap  s  <Plug>Ysurround
 	xmap  s  <Plug>VSurround
 endfunc
 
