@@ -65,7 +65,8 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'ryanoasis/vim-devicons'
 
 
-	TweakPlug 'simeji/winresizer'
+	TweakPlug 'roxma/vim-window-resize-easy'
+	" TweakPlug 'simeji/winresizer'
 	TweakPlug 'bling/vim-airline'
 	" TweakPlug 'itchyny/lightline.vim'
 
