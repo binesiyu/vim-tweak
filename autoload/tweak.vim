@@ -724,7 +724,7 @@ func! tweak#surround()
 endfunc
 
 func! tweak#ultisnip()
-	let g:UltiSnipsExpandTrigger = "<c-g>"
+	let g:UltiSnipsExpandTrigger = "<c-u>"
 	let g:UltiSnipsJumpForwardTrigger="<c-j>"
 	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 endfunc
