@@ -94,6 +94,9 @@ func! tweak#plug(plugDir)
 	" remove it for now
 	" TweakPlug 'junegunn/vim-peekaboo'
 
+	" Automatically set paste for you.
+	TweakPlug 'roxma/vim-paste-easy'
+
 	TweakPlug 'roxma/vim-encode'
 	TweakPlug 'godlygeek/tabular'
 	TweakPlug 'tpope/vim-surround'
