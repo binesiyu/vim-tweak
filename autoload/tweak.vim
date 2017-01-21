@@ -248,6 +248,9 @@ func! tweak#bootstrap(...)
 	set relativenumber
 	set number
 
+	" airline plugin shows the mode, no need for this
+	set noshowmode
+
 	"
 	" }
 	"""
