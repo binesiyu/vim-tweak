@@ -117,6 +117,7 @@ func! tweak#plug(plugDir)
 	TweakPlug 'neomake/neomake'
 	" TweakPlug 'roxma/SimpleAutoComplPop'
 	TweakPlug 'roxma/vim-syntax-compl-pop'
+	TweakPlug 'roxma/nvim-async-complete'
 	" TweakPlug 'jiangmiao/auto-pairs'
 
 	TweakPlug 'majutsushi/tagbar'
@@ -501,6 +502,8 @@ func! tweak#bootstrap(...)
 endfunc
 
 func! tweak#airline()
+	let g:airline#extensions#disable_rtp_load = 1
+	let g:airline_extensions = ['tabline']
 	let g:airline#extensions#tabline#buffer_nr_show = 1 
 	let g:airline#extensions#tabline#enabled = 1
 	" let g:airline#extensions#tabline#left_sep = ' '
