@@ -116,9 +116,10 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'scrooloose/syntastic'
 	TweakPlug 'neomake/neomake'
 	" TweakPlug 'roxma/SimpleAutoComplPop'
-	TweakPlug 'roxma/vim-syntax-compl-pop'
-	TweakPlug 'roxma/nvim-async-complete'
+	" TweakPlug 'roxma/vim-syntax-compl-pop'
 	" TweakPlug 'jiangmiao/auto-pairs'
+	TweakPlug 'roxma/nvim-possible-textchangedi'
+	TweakPlug 'roxma/nvim-complete-manager'
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
@@ -252,6 +253,8 @@ func! tweak#bootstrap(...)
 	" airline plugin shows the mode, no need for this
 	set noshowmode
 
+	set shortmess+=c
+
 	"
 	" }
 	"""
@@ -384,7 +387,8 @@ func! tweak#bootstrap(...)
 	" {
 
 	" save
-	nnoremap <C-s> :w<CR>
+	nnoremap <C-s> :<C-U>w<CR>
+	inoremap <C-s> <ESC>:<C-U>w<CR>
 
 	" inspired by kakoune's alt-i and alt-a key
 	nnoremap s vi
@@ -498,7 +502,15 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'pelodelfuego/vim-swoop'           let g:swoopUseDefaultKeyMap = 0
 	TweakForPlug 'airblade/vim-gitgutter'           let g:gitgutter_map_keys = 0
 	TweakForPlug 'SirVer/ultisnips'                 call tweak#ultisnip()
+	TweakForPlug 'roxma/python-support.nvim'		call tweak#python_support()
 
+endfunc
+
+func! tweak#python_support()
+	" don't need python2
+	let s:python_support_python2_require = 0
+	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'flake8')
+	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'jedi')
 endfunc
 
 func! tweak#airline()
