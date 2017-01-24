@@ -118,7 +118,7 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'roxma/SimpleAutoComplPop'
 	" TweakPlug 'roxma/vim-syntax-compl-pop'
 	" TweakPlug 'jiangmiao/auto-pairs'
-	TweakPlug 'roxma/nvim-possible-textchangedi'
+	" TweakPlug 'roxma/nvim-possible-textchangedi'
 	TweakPlug 'roxma/nvim-complete-manager'
 
 	TweakPlug 'majutsushi/tagbar'
