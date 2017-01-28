@@ -119,7 +119,9 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'roxma/vim-syntax-compl-pop'
 	" TweakPlug 'jiangmiao/auto-pairs'
 	" TweakPlug 'roxma/nvim-possible-textchangedi'
-	TweakPlug 'roxma/nvim-complete-manager'
+	if has('nvim')
+		TweakPlug 'roxma/nvim-complete-manager'
+	endif
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
@@ -249,9 +251,6 @@ func! tweak#bootstrap(...)
 	" line number
 	set relativenumber
 	set number
-
-	" airline plugin shows the mode, no need for this
-	set noshowmode
 
 	set shortmess+=c
 
@@ -467,7 +466,7 @@ func! tweak#bootstrap(...)
 	
 	" smart tab for auto complete
 	inoremap <expr> <silent> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
-	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<TAB>"
+	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<S-TAB>"
 
 	set completeopt=menu,menuone,longest
 
@@ -503,14 +502,24 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'airblade/vim-gitgutter'           let g:gitgutter_map_keys = 0
 	TweakForPlug 'SirVer/ultisnips'                 call tweak#ultisnip()
 	TweakForPlug 'roxma/python-support.nvim'		call tweak#python_support()
+	TweakForPlug 'roxma/nvim-complete-manager'      call tweak#nvim_complete_manager()
 
+endfunc
+
+fun! tweak#nvim_complete_manager()
+	" use this to add airline plugin if airline rtp load is disabled
+	let g:airline#extensions#cm_call_signature#enabled = 1
+	if exists('g:airline_extensions')
+		let g:airline_extensions = add(g:airline_extensions, 'cm_call_signature')
+	endif
+	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'jedi')
+	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'mistune')
 endfunc
 
 func! tweak#python_support()
 	" don't need python2
 	let s:python_support_python2_require = 0
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'flake8')
-	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'jedi')
 endfunc
 
 func! tweak#airline()
@@ -523,6 +532,10 @@ func! tweak#airline()
 	set laststatus=2
 	let g:airline#extensions#capslock#enabled = 1
 	"let g:airline_section_b = '%{&expandtab?"et":"noet"}'
+
+	" airline plugin shows the mode, no need for this
+	set noshowmode
+
 endfunc
 
 func! tweak#lightline()
