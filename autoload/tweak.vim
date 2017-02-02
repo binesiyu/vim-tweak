@@ -120,8 +120,9 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'jiangmiao/auto-pairs'
 	" TweakPlug 'roxma/nvim-possible-textchangedi'
 	if has('nvim')
-		TweakPlug 'roxma/nvim-complete-manager'
+		TweakPlug 'roxma/nvim-complete-manager',  {'do': 'npm install'}
 	endif
+	TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
