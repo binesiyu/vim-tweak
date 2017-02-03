@@ -503,11 +503,11 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'airblade/vim-gitgutter'           let g:gitgutter_map_keys = 0
 	TweakForPlug 'SirVer/ultisnips'                 call tweak#ultisnip()
 	TweakForPlug 'roxma/python-support.nvim'		call tweak#python_support()
-	TweakForPlug 'roxma/nvim-complete-manager'      call tweak#nvim_complete_manager()
+	TweakForPlug 'roxma/nvim-completion-manager'    call tweak#nvim_completion_manager()
 
 endfunc
 
-fun! tweak#nvim_complete_manager()
+fun! tweak#nvim_completion_manager()
 	" use this to add airline plugin if airline rtp load is disabled
 	let g:airline#extensions#cm_call_signature#enabled = 1
 	if exists('g:airline_extensions')
@@ -515,6 +515,7 @@ fun! tweak#nvim_complete_manager()
 	endif
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'jedi')
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'mistune')
+	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'setproctitle')
 endfunc
 
 func! tweak#python_support()
