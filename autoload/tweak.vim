@@ -308,8 +308,8 @@ func! tweak#bootstrap(...)
 	noremap <expr> } tweak#blockmove#down_key()
 
 	" scrolling
-	noremap <expr> S float2nr(winheight(0)/3) . '<C-y>M0'
-	noremap <expr> s float2nr(winheight(0)/3) . '<C-e>M0'
+	" noremap <expr> S float2nr(winheight(0)/3) . '<C-y>M0'
+	" noremap <expr> s float2nr(winheight(0)/3) . '<C-e>M0'
 
 	" the m key is taken by easymotion
 	" noremap - m
@@ -391,9 +391,8 @@ func! tweak#bootstrap(...)
 	inoremap <C-s> <ESC>:<C-U>w<CR>
 
 	" inspired by kakoune's alt-i and alt-a key
-	" removed in favor of the scrolling feature
-	" nnoremap s vi
-	" nnoremap S va
+	nnoremap s vi
+	nnoremap S va
 
 	" `u` is the undo key in normal mode
 	" `U` would be more intuitive to be the redo key.
@@ -720,7 +719,7 @@ func! tweak#surround()
 	" s instead of ys, feels more consistence
 	nmap ds  <Plug>Dsurround
 	nmap cs  <Plug>Csurround
-	xmap gs  <Plug>VSurround
+	xmap s   <Plug>VSurround
 endfunc
 
 func! tweak#ultisnip()
