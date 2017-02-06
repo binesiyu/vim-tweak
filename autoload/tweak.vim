@@ -71,10 +71,10 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'itchyny/lightline.vim'
 
 	" Get highlighted feedback when yanking
-	TweakPlug 'machakann/vim-highlightedyank'
+	" TweakPlug 'machakann/vim-highlightedyank'
 
 	" TweakPlug 'yuttie/comfortable-motion.vim'
-	
+
 	" This plugin significantly slows down vim
 	" TweakPlug 'severin-lemaignan/vim-minimap'
 
@@ -114,15 +114,15 @@ func! tweak#plug(plugDir)
 	" YouCompleteMe slow down vim's start time, replace it with SimpleAutoComplPop
 	" TweakPlug 'Valloric/YouCompleteMe'
 	" TweakPlug 'scrooloose/syntastic'
-	TweakPlug 'neomake/neomake'
 	" TweakPlug 'roxma/SimpleAutoComplPop'
 	" TweakPlug 'roxma/vim-syntax-compl-pop'
 	" TweakPlug 'jiangmiao/auto-pairs'
 	" TweakPlug 'roxma/nvim-possible-textchangedi'
 	if has('nvim')
+		TweakPlug 'neomake/neomake'
 		TweakPlug 'roxma/nvim-completion-manager',  {'do': 'npm install'}
+		TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
 	endif
-	TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
@@ -165,7 +165,9 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'scrooloose/vim-slumlord'
 
 
-	TweakPlug 'tmux-plugins/vim-tmux-focus-events'
+	if !has('nvim')
+		TweakPlug 'tmux-plugins/vim-tmux-focus-events'
+	endif
 	TweakPlug 'roxma/vim-tmux-clipboard'
 
 	" Track the engine.
@@ -178,7 +180,7 @@ func! tweak#plug(plugDir)
 	" crashes if no man page found
 	" TweakPlug 'jez/vim-superman'
 
-	" not needed
+	" don't need it anymore
 	" TweakPlug 'christoomey/vim-tmux-navigator'
 
 	" Can't match JavaScript inside html <script> tag
