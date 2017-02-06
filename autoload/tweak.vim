@@ -308,8 +308,8 @@ func! tweak#bootstrap(...)
 	noremap <expr> } tweak#blockmove#down_key()
 
 	" scrolling
-	noremap <expr> S float2nr(winheight(0)/3) . '<C-y>'
-	noremap <expr> s float2nr(winheight(0)/3) . '<C-e>'
+	noremap <expr> S float2nr(winheight(0)/3) . '<C-y>M0'
+	noremap <expr> s float2nr(winheight(0)/3) . '<C-e>M0'
 
 	" the m key is taken by easymotion
 	" noremap - m
