@@ -66,7 +66,6 @@ func! tweak#plug(plugDir)
 
 
 	TweakPlug 'roxma/vim-window-resize-easy'
-	" TweakPlug 'simeji/winresizer'
 	TweakPlug 'bling/vim-airline'
 	" TweakPlug 'itchyny/lightline.vim'
 
@@ -111,10 +110,8 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'justinmk/vim-sneak'
 	TweakPlug 'Lokaltog/vim-easymotion'
 
-	" YouCompleteMe slow down vim's start time, replace it with SimpleAutoComplPop
 	" TweakPlug 'Valloric/YouCompleteMe'
 	" TweakPlug 'scrooloose/syntastic'
-	" TweakPlug 'roxma/SimpleAutoComplPop'
 	" TweakPlug 'roxma/vim-syntax-compl-pop'
 	" TweakPlug 'jiangmiao/auto-pairs'
 	" TweakPlug 'roxma/nvim-possible-textchangedi'
@@ -490,7 +487,6 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'majutsushi/tagbar'                call tweak#tagbar()
 	TweakForPlug 'scrooloose/nerdtree'              call tweak#nerdtree()
 	TweakForPlug 'junegunn/fzf.vim'                 call tweak#fzf()
-	" TweakForPlug 'roxma/SimpleAutoComplPop'         call tweak#SimpleAutoComplPop()
 	TweakForPlug 'altercation/vim-colors-solarized' call tweak#solarized()
 	TweakForPlug 'scrooloose/syntastic'             call tweak#syntastic()
 	TweakForPlug 'neomake/neomake'					call tweak#neomake()
@@ -500,7 +496,6 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'davidhalter/jedi-vim'             call tweak#jedi()
 	TweakForPlug 'plasticboy/vim-markdown'          call tweak#markdown()
 	TweakForPlug 'christoomey/vim-tmux-navigator'   call tweak#vim_tmux_navigator()
-	TweakForPlug 'simeji/winresizer'                call tweak#winresizer()
 	TweakForPlug 'Valloric/YouCompleteMe'           call tweak#YouCompleteMe()
 	TweakForPlug 'tpope/vim-surround'               call tweak#surround()
 	TweakForPlug 'pelodelfuego/vim-swoop'           let g:swoopUseDefaultKeyMap = 0
@@ -709,13 +704,6 @@ func! tweak#vim_tmux_navigator()
 	" tmux navigator stuff
 	let g:tmux_navigator_no_mappings = 1
 endfunc
-
-func! tweak#winresizer()
-	let g:winresizer_start_key    = '<C-W><C-W>'
-	let g:winresizer_vert_resize  = 1
-	let g:winresizer_horiz_resize = 1
-endfunc
-
 
 func! tweak#YouCompleteMe()
 	" only enable for php complications
