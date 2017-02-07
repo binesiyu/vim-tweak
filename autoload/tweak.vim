@@ -508,11 +508,13 @@ endfunc
 fun! tweak#nvim_completion_manager()
 	" use this to add airline plugin if airline rtp load is disabled
 	let g:airline#extensions#cm_call_signature#enabled = 1
-	if exists('g:airline_extensions')
-		let g:airline_extensions = add(g:airline_extensions, 'cm_call_signature')
-	endif
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'jedi')
+
+	" language specific completions on markdown file
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'mistune')
+
+	" utils, optional
+	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'psutil')
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'setproctitle')
 endfunc
 
