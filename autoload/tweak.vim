@@ -115,7 +115,7 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'Valloric/YouCompleteMe'
 	" TweakPlug 'scrooloose/syntastic'
 	" TweakPlug 'roxma/vim-syntax-compl-pop'
-	" TweakPlug 'jiangmiao/auto-pairs'
+	TweakPlug 'jiangmiao/auto-pairs'
 	" TweakPlug 'roxma/nvim-possible-textchangedi'
 	if has('nvim')
 		TweakPlug 'neomake/neomake'
