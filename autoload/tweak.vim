@@ -95,6 +95,8 @@ func! tweak#plug(plugDir)
 
 	" Automatically set paste for you.
 	TweakPlug 'roxma/vim-paste-easy'
+	let g:paste_char_threshold = 3
+
 	TweakPlug 'roxma/python-support.nvim'
 
 	TweakPlug 'roxma/vim-encode'
