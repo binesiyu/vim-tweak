@@ -360,7 +360,10 @@ func! tweak#bootstrap(...)
 	" clean last pattern to avoid highlighting
 	" :help last-pattern
 	nnoremap <ESC><ESC> :let @/ = ""<CR>
-	nnoremap <expr> <C-l> ":nohlsearch \| diffupdate \| syntax sync fromstart \| echo map(synstack(line(\".\"),col(\".\")),'synIDattr(v:val,\"name\")') \<cr>"
+
+	" kind of like <c-l> in shell cmdline
+	nnoremap <expr> <C-l> ":nohlsearch \| diffupdate \| syntax sync fromstart \| echo map(synstack(line(\".\"),col(\".\")),'synIDattr(v:val,\"name\")') \<cr>zz"
+	inoremap <c-l> <c-o>zz
 
 
 	" enable incremental search 
