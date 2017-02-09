@@ -730,7 +730,8 @@ func! tweak#surround()
 endfunc
 
 func! tweak#ultisnip()
-	let g:UltiSnipsExpandTrigger = "<c-u>"
+	let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+	inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
 	let g:UltiSnipsJumpForwardTrigger="<c-j>"
 	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 endfunc
