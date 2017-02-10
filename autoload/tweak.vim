@@ -411,6 +411,9 @@ func! tweak#bootstrap(...)
 	" good to me.
 	nnoremap U <C-R>
 
+	" do not override the register after paste in select mode
+	xnoremap <expr> p 'pgv"'.v:register.'y`>'
+
 	noremap <leader>p :setlocal paste!<cr>
 
 	set viminfo='100,\"50    	" read/write a .viminfo file, don't store more
