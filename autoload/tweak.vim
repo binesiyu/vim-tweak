@@ -110,7 +110,8 @@ func! tweak#plug(plugDir)
 	" I have easymotion already. If I partially mapped sneak key f,
 	" Then F + ; will now work as I expected. So I don't use this plugin.
 	" TweakPlug 'justinmk/vim-sneak'
-	TweakPlug 'Lokaltog/vim-easymotion'
+	" seems like I never use easymotion after installing it
+	" TweakPlug 'Lokaltog/vim-easymotion'
 
 	" TweakPlug 'Valloric/YouCompleteMe'
 	" TweakPlug 'scrooloose/syntastic'
@@ -504,7 +505,6 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'scrooloose/syntastic'             call tweak#syntastic()
 	TweakForPlug 'neomake/neomake'					call tweak#neomake()
 	TweakForPlug 'ctrlpvim/ctrlp.vim'               call tweak#ctrlp()
-	TweakForPlug 'Lokaltog/vim-easymotion'          call tweak#easymotion()
 	TweakForPlug 'fatih/vim-go'                     call tweak#go()
 	TweakForPlug 'davidhalter/jedi-vim'             call tweak#jedi()
 	TweakForPlug 'plasticboy/vim-markdown'          call tweak#markdown()
