@@ -111,7 +111,7 @@ func! tweak#plug(plugDir)
 	" Then F + ; will now work as I expected. So I don't use this plugin.
 	" TweakPlug 'justinmk/vim-sneak'
 	" seems like I never use easymotion after installing it
-	TweakPlug 'Lokaltog/vim-easymotion'
+	" TweakPlug 'Lokaltog/vim-easymotion'
 
 	" TweakPlug 'Valloric/YouCompleteMe'
 	" TweakPlug 'scrooloose/syntastic'
