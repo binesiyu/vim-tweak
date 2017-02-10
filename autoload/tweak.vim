@@ -111,7 +111,7 @@ func! tweak#plug(plugDir)
 	" Then F + ; will now work as I expected. So I don't use this plugin.
 	" TweakPlug 'justinmk/vim-sneak'
 	" seems like I never use easymotion after installing it
-	" TweakPlug 'Lokaltog/vim-easymotion'
+	TweakPlug 'Lokaltog/vim-easymotion'
 
 	" TweakPlug 'Valloric/YouCompleteMe'
 	" TweakPlug 'scrooloose/syntastic'
@@ -137,6 +137,7 @@ func! tweak#plug(plugDir)
 	TweakPlug 'junegunn/fzf.vim'
 	" for the enhanced <Leader>* key
 	TweakPlug 'haya14busa/vim-asterisk'
+	TweakPlug 'haya14busa/incsearch.vim'
 	" TweakPlug 'dyng/ctrlsf.vim'
 	" TweakPlug 'pelodelfuego/vim-swoop'
 
@@ -363,8 +364,8 @@ func! tweak#bootstrap(...)
 
 	"   use ':' so that we could found the previous search string in history command
 	"   '\c' case insensitive
-	nnoremap /  /\c\v
-	nnoremap ?  ?\c\v
+	map /  <Plug>(incsearch-forward)\c\v
+	map ?  <Plug>(incsearch-backward)\c\v
 
 	" clean last pattern to avoid highlighting
 	" :help last-pattern
