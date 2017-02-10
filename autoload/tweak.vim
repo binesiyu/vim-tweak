@@ -357,15 +357,15 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'haya14busa/vim-asterisk' vmap * <Plug>(asterisk-*)
 	TweakForPlug 'haya14busa/vim-asterisk' vmap # <Plug>(asterisk-#)
 
+	"   use ':' so that we could found the previous search string in history command
+	"   '\c' case insensitive
+	TweakForPlug 'haya14busa/incsearch.vim' map /  <Plug>(incsearch-forward)\c\v
+	TweakForPlug 'haya14busa/incsearch.vim' map ?  <Plug>(incsearch-backward)\c\v
+
 	" Thanks to https://yuez.me/vim-ji-qiao/
 	" n always for searching down, N always for searching up
 	nnoremap <expr> n  'Nn'[v:searchforward]
 	nnoremap <expr> N  'nN'[v:searchforward]
-
-	"   use ':' so that we could found the previous search string in history command
-	"   '\c' case insensitive
-	map /  <Plug>(incsearch-forward)\c\v
-	map ?  <Plug>(incsearch-backward)\c\v
 
 	" clean last pattern to avoid highlighting
 	" :help last-pattern
