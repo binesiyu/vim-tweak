@@ -256,6 +256,12 @@ func! tweak#bootstrap(...)
 
 	set shortmess+=c
 
+	augroup tweak_help
+		" make help window open verticle right, so that you won't feel that the
+		" file buffer window adjusted when help is opened
+		au BufWinEnter */doc/* if &filetype=='help' | wincmd L | endif
+	augroup end
+
 	"
 	" }
 	"""
