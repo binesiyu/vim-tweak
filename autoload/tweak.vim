@@ -143,6 +143,7 @@ func! tweak#plug(plugDir)
 
 	" markdown
 	TweakPlug 'plasticboy/vim-markdown'
+	TweakPlug 'mzlogin/vim-markdown-toc'
 
 	" php
 	" Use my own forked repo, I'm planning on performance improvment
