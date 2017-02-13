@@ -265,6 +265,9 @@ func! tweak#bootstrap(...)
 		au BufWinEnter */doc/* if &filetype=='help' | wincmd L | endif
 	augroup end
 
+	" Always show at least one line above/below the cursor.
+	set scrolloff=1
+
 	"
 	" }
 	"""
