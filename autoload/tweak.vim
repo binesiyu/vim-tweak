@@ -57,7 +57,6 @@ func! tweak#plug(plugDir)
 
 	TweakPlugBegin a:plugDir
 
-	" TweakPlug 'altercation/vim-colors-solarized'
 	" TweakPlug 'noahfrederick/vim-noctu'
 	" TweakPlug 'w0ng/vim-hybrid'
 	TweakPlug 'morhetz/gruvbox'
@@ -519,7 +518,6 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'majutsushi/tagbar'                call tweak#tagbar()
 	TweakForPlug 'scrooloose/nerdtree'              call tweak#nerdtree()
 	TweakForPlug 'junegunn/fzf.vim'                 call tweak#fzf()
-	TweakForPlug 'altercation/vim-colors-solarized' call tweak#solarized()
 	TweakForPlug 'scrooloose/syntastic'             call tweak#syntastic()
 	TweakForPlug 'neomake/neomake'					call tweak#neomake()
 	TweakForPlug 'ctrlpvim/ctrlp.vim'               call tweak#ctrlp()
@@ -647,15 +645,6 @@ func! tweak#fzf()
 	nnoremap <expr> <C-f>a  	 tweak#wtb_switch#key_switch_buffer_in_this_page(':FZFAg ')
 	nnoremap <expr> <C-f><C-a>   tweak#wtb_switch#key_switch_buffer_in_this_page(':FZFAg ')
 
-endfunc
-
-func! tweak#solarized()
-	if &t_Co == 256
-		" syntax enable
-		let g:solarized_termcolors=256
-		" set background=dark
-		" colorscheme solarized
-	endif
 endfunc
 
 func! tweak#syntastic()
