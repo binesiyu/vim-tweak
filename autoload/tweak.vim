@@ -500,9 +500,12 @@ func! tweak#bootstrap(...)
 	""""
 
 	""""
-	" panes
 	" {
-	nnoremap <C-p>c :cwindow<CR>
+
+	" gw as prefix for special window
+
+	nnoremap gwc :cwindow<CR>
+
 	" }
 	""""
 
@@ -575,8 +578,7 @@ endfunc
 
 func! tweak#tagbar()
 	" <C-p> for open/close pane
-	nnoremap <C-p><C-t> :TagbarToggle<CR>
-	nnoremap <C-p>t :TagbarToggle<CR>
+	nnoremap gwt :TagbarToggle<CR>
 	" The tags are not sorted according to their name
 	let g:tagbar_sort = 0
 	let g:tagbar_type_php  = {
@@ -593,8 +595,7 @@ endfunc
 
 func! tweak#nerdtree()
 	let g:NERDTreeQuitOnOpen=1
-	nnoremap <C-p><C-n> :NERDTreeToggle<CR>
-	nnoremap <C-p>n :NERDTreeToggle<CR>
+	nnoremap gwn :NERDTreeToggle<CR>
 	"  close vim if the only window left open is a NERDTree
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endfunc
