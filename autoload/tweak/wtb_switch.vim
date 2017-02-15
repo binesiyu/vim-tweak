@@ -2,15 +2,6 @@
 " smart tab/buffer switching. nice integrated with airline
 " 
 " usage:
-" nnoremap <expr> <Leader>1 tweak#wtb_switch#key_leader_bufnum(1)
-" nnoremap <expr> <Leader>2 tweak#wtb_switch#key_leader_bufnum(2)
-" nnoremap <expr> <Leader>3 tweak#wtb_switch#key_leader_bufnum(3)
-" nnoremap <expr> <Leader>4 tweak#wtb_switch#key_leader_bufnum(4)
-" nnoremap <expr> <Leader>5 tweak#wtb_switch#key_leader_bufnum(5)
-" nnoremap <expr> <Leader>6 tweak#wtb_switch#key_leader_bufnum(6)
-" nnoremap <expr> <Leader>7 tweak#wtb_switch#key_leader_bufnum(7)
-" nnoremap <expr> <Leader>8 tweak#wtb_switch#key_leader_bufnum(8)
-" nnoremap <expr> <Leader>9 tweak#wtb_switch#key_leader_bufnum(9)
 " nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
 " nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
 " nnoremap <expr> <S-q>     tweak#wtb_switch#key_quit()
@@ -130,17 +121,6 @@ func! tweak#wtb_switch#key_quit()
 endfunc
 
 nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum) ''
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)1 tweak#wtb_switch#key_leader_bufnum(1,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)2 tweak#wtb_switch#key_leader_bufnum(2,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)3 tweak#wtb_switch#key_leader_bufnum(3,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)4 tweak#wtb_switch#key_leader_bufnum(4,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)5 tweak#wtb_switch#key_leader_bufnum(5,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)6 tweak#wtb_switch#key_leader_bufnum(6,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)7 tweak#wtb_switch#key_leader_bufnum(7,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)8 tweak#wtb_switch#key_leader_bufnum(8,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)9 tweak#wtb_switch#key_leader_bufnum(9,1)
-" nnoremap <expr> <Plug>(tweak#wtb_switch#key_leader_bufnum)0 tweak#wtb_switch#key_leader_bufnum(0,1)
-
 
 func! tweak#wtb_switch#key_leader_bufnum(num,...)
 	call s:init()
