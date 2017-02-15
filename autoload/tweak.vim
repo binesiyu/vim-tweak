@@ -412,6 +412,11 @@ func! tweak#bootstrap(...)
 	nnoremap <C-s> :<C-U>w<CR>
 	inoremap <C-s> <ESC>:<C-U>w<CR>
 
+	" use g= for textwidth formattingh, easier to remember because = is for
+	" tab formatting
+	nnoremap g=   gw
+	nnoremap g==   gwgw
+
 	" inspired by kakoune's alt-i and alt-a key
 	nnoremap s vi
 	nnoremap S va
