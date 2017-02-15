@@ -321,6 +321,9 @@ func! tweak#bootstrap(...)
 	noremap <expr> { tweak#blockmove#up_key()
 	noremap <expr> } tweak#blockmove#down_key()
 
+	nnoremap <silent> g<c-o> :call tweak#enhance_jumps#buffer_c_o()<CR>
+	nnoremap <silent> g<c-i> :call tweak#enhance_jumps#buffer_c_i()<CR>
+
 	" scrolling
 	" noremap <expr> S float2nr(winheight(0)/3) . '<C-y>M0'
 	" noremap <expr> s float2nr(winheight(0)/3) . '<C-e>M0'
@@ -555,7 +558,7 @@ func! tweak#airline()
 	"let g:airline_section_b = '%{&expandtab?"et":"noet"}'
 
 	" airline plugin shows the mode, no need for this
-	set noshowmode
+	" set noshowmode
 
 endfunc
 
