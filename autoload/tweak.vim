@@ -283,7 +283,7 @@ func! tweak#bootstrap(...)
 
 	" NOTE: this is wierd, the follow ing command is invalid:
 	" nnoremap <expr> <S-l> ( (type(tabpagebuflist(tabpagenr()==3))||(type(tabpagebuflist(tabpagenr()-1))==3)) ? ":tabn\<CR>"  : ":bn\<CR>" )
-	nnoremap <expr> - tweak#wtb_switch#key_leader_bufnum(v:count)
+	nnoremap <expr> -         tweak#wtb_switch#key_switch_buffer_in_this_page(":" . " b " . v:count  . "\<CR>")
 	nnoremap <expr> <S-l>     tweak#wtb_switch#key_next()
 	nnoremap <expr> <S-h>     tweak#wtb_switch#key_prev()
 	nnoremap <expr> <S-q>     tweak#wtb_switch#key_quit()
