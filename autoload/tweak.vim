@@ -323,7 +323,7 @@ func! tweak#bootstrap(...)
 	nnoremap <silent> g<c-o> :call tweak#enhance_jumps#buffer_c_o()<CR>
 	nnoremap <silent> g<c-i> :call tweak#enhance_jumps#buffer_c_i()<CR>
 
-	call tweak#only_editting_buffers#init()
+	" call tweak#only_editting_buffers#init()
 
 	" scrolling
 	" noremap <expr> S float2nr(winheight(0)/3) . '<C-y>M0'
