@@ -14,7 +14,7 @@ func! s:is_multi_tabpage()
 endfunc
 
 func! s:is_normal_buffer(nr)
-	return getbufvar(a:nr,'&buftype')==''
+	return buflisted(a:nr) && getbufvar(a:nr,'&buftype')==''
 endfunc
 
 func! s:get_normal_windows()
@@ -40,7 +40,7 @@ func! tweak#wtb_switch#key_switch_buffer_in_this_page(key)
 		" If there's only one window with listed buffer, swith to this window
 		" to use it for switching
 		return ":" . l:windows[0] . "windo echo \<CR>" . a:key
-	elseif l:listedCnt == 0
+	elseif len(l:windows) == 0
 		" we have no other option here :)
 		return a:key
 	else
@@ -90,12 +90,8 @@ func! tweak#wtb_switch#key_quit()
 				return ":q\<CR>"
 			endif
 		else
-			if index(l:list,l:nr)>=0 && len(l:list)==1
-				" if this is the only listed buffer
-				return ":q\<CR>"
-			else
-				return ":try | bd " . l:nr . " | catch | b " . l:nr . " | endtry\<CR>"
-			endif
+			" the only window
+			return ":try | bd " . l:nr . " | catch | b " . l:nr . " | endtry\<CR>"
 		endif
 	else
 		if bufname('%')!='' && s:is_normal_buffer(l:nr)
