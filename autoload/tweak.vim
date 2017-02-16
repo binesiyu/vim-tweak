@@ -379,8 +379,10 @@ func! tweak#bootstrap(...)
 	" :help last-pattern
 	nnoremap <ESC><ESC> :let @/ = ""<CR>
 
-	" kind of like <c-l> in shell cmdline
-	nnoremap <expr> <C-l> ":nohlsearch \| diffupdate \| syntax sync fromstart \| echo map(synstack(line(\".\"),col(\".\")),'synIDattr(v:val,\"name\")') \<cr>zz"
+	" kind of like <c-l> in shell cmdline, use
+	" tweak#wtb_switch#key_switch_buffer_in_this_page to switch to the default
+	" normal buffer window
+	nnoremap <silent> <expr> <C-l>  tweak#wtb_switch#key_switch_buffer_in_this_page('') . "zz:nohlsearch \| diffupdate \| syntax sync fromstart \<cr>" 
 	inoremap <c-l> <c-o>zz
 
 

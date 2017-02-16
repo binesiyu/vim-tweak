@@ -69,9 +69,10 @@ func! tweak#wtb_switch#key_quit()
 		return ":tabclose\<CR>"
 	endif
 
-	let l:normal_buffers = filter(range(1, bufnr('$')), 's:is_normal_buffer(v:val)')
+	let l:normal_buf_cnt = len(filter(range(1, bufnr('$')), 's:is_normal_buffer(v:val)'))
+	let l:normal_win_cnt = len(s:get_normal_windows())
 	let l:nr = bufnr('%')
-	if len(l:normal_buffers)>1
+	if len(l:normal_buf_cnt)>1
 
 		" special buffer
 		if index(['quickfix','help'],&buftype)>=0
@@ -80,11 +81,10 @@ func! tweak#wtb_switch#key_quit()
 
 		let l:windows = winnr('$')
 		if l:windows>1
-			let l:normal_cnt = len(s:get_normal_windows())
 			" if current window is the only one with the listed buffer, delete
 			" the buffer
 			" otherwise, close the window
-			if s:is_normal_buffer(l:nr) && l:normal_cnt==1
+			if s:is_normal_buffer(l:nr) && l:normal_win_cnt==1
 				return ":try | bd " . l:nr . " | catch | b " . l:nr . " | endtry\<CR>"
 			else
 				return ":q\<CR>"
@@ -94,12 +94,14 @@ func! tweak#wtb_switch#key_quit()
 			return ":try | bd " . l:nr . " | catch | b " . l:nr . " | endtry\<CR>"
 		endif
 	else
-		if bufname('%')!='' && s:is_normal_buffer(l:nr)
+		if bufname(l:nr)!='' && s:is_normal_buffer(l:nr) && l:normal_win_cnt==1
 			" normal buffer with a name, which means it is associated with a
 			" file. Close the buffer instead of close the window and end up
 			" closing vim. 
 			return ":bd\<CR>"
 		endif
+		" `l:normal_win_cnt==1` for closing the window when the same
+		" opeded buffer is displayed in two splitted window
 		return ":q\<CR>"
 	endif
 endfunc
