@@ -602,7 +602,7 @@ func! tweak#nerdtree()
 	let g:NERDTreeQuitOnOpen=1
 	nnoremap gwn :NERDTreeToggle<CR>
 	"  close vim if the only window left open is a NERDTree
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+	autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endfunc
 
 func! tweak#fzf()
