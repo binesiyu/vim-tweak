@@ -551,8 +551,6 @@ fun! tweak#nvim_completion_manager()
 endfunc
 
 func! tweak#python_support()
-	" don't need python2
-	let s:python_support_python2_require = 0
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'flake8')
 endfunc
 
