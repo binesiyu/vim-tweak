@@ -154,7 +154,7 @@ func! tweak#plug(plugDir)
 	" vim python completion
 	TweakPlug 'davidhalter/jedi-vim'
 
-	TweakPlug 'Rip-Rip/clang_complete'
+	TweakPlug 'roxma/clang_complete'
 	let g:clang_make_default_keymappings=0
 
 	" web front-end, disabled by polyglot
