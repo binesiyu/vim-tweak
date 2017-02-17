@@ -552,14 +552,14 @@ fun! tweak#nvim_completion_manager()
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'psutil')
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'setproctitle')
 
-	let g:python_support_python2_requirements = add(get(g:,'python_support_python3_requirements',[]),'jedi')
+
+	let g:python_support_python2_requirements = add(get(g:,'python_support_python2_requirements',[]),'jedi')
 
 	" language specific completions on markdown file
-	let g:python_support_python2_requirements = add(get(g:,'python_support_python3_requirements',[]),'mistune')
+	let g:python_support_python2_requirements = add(get(g:,'python_support_python2_requirements',[]),'mistune')
 
 	" utils, optional
-	let g:python_support_python2_requirements = add(get(g:,'python_support_python3_requirements',[]),'psutil')
-	let g:python_support_python2_requirements = add(get(g:,'python_support_python3_requirements',[]),'setproctitle')
+	let g:python_support_python2_requirements = add(get(g:,'python_support_python2_requirements',[]),'setproctitle')
 endfunc
 
 func! tweak#python_support()
