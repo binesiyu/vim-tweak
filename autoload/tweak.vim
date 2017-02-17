@@ -154,6 +154,9 @@ func! tweak#plug(plugDir)
 	" vim python completion
 	TweakPlug 'davidhalter/jedi-vim'
 
+	TweakPlug 'Rip-Rip/clang_complete'
+	let g:clang_make_default_keymappings=0
+
 	" web front-end, disabled by polyglot
 	" TweakPlug 'jelera/vim-javascript-syntax'
 	" html syntaxed, it's inside polyglot
@@ -508,9 +511,9 @@ func! tweak#bootstrap(...)
 	""""
 	" {
 
-	" gw as prefix for special window
+	" <Leader>w as prefix for special window
 
-	nnoremap gwc :cwindow<CR>
+	nnoremap <Leader>wc :cwindow<CR>
 
 	" }
 	""""
@@ -590,7 +593,7 @@ endfunc
 
 func! tweak#tagbar()
 	" <C-p> for open/close pane
-	nnoremap gwt :TagbarToggle<CR>
+	nnoremap <Leader>wt :TagbarToggle<CR>
 	" The tags are not sorted according to their name
 	let g:tagbar_sort = 0
 	let g:tagbar_type_php  = {
@@ -607,7 +610,7 @@ endfunc
 
 func! tweak#nerdtree()
 	let g:NERDTreeQuitOnOpen=1
-	nnoremap gwn :NERDTreeToggle<CR>
+	nnoremap <Leader>wn :NERDTreeToggle<CR>
 	"  close vim if the only window left open is a NERDTree
 	autocmd BufEnter * nested if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endfunc
