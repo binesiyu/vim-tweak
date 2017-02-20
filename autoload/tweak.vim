@@ -155,7 +155,6 @@ func! tweak#plug(plugDir)
 	TweakPlug 'davidhalter/jedi-vim'
 
 	TweakPlug 'roxma/clang_complete'
-	let g:clang_make_default_keymappings=0
 
 	" web front-end, disabled by polyglot
 	" TweakPlug 'jelera/vim-javascript-syntax'
