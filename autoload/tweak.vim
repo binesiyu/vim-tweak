@@ -119,9 +119,9 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'roxma/nvim-possible-textchangedi'
 	if has('nvim')
 		TweakPlug 'neomake/neomake'
-		TweakPlug 'roxma/nvim-completion-manager',  {'do': 'npm install'}
 		TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
 	endif
+	TweakPlug 'roxma/nvim-completion-manager',  {'do': 'npm install'}
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
@@ -179,6 +179,8 @@ func! tweak#plug(plugDir)
 	TweakPlug 'honza/vim-snippets'
 
 	TweakPlug 'metakirby5/codi.vim'
+
+	TweakPlug 'roxma/vim-hug-neovim-rpc'
 
 	" crashes if no man page found
 	" TweakPlug 'jez/vim-superman'
