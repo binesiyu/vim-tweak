@@ -117,14 +117,20 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'roxma/vim-syntax-compl-pop'
 	" TweakPlug 'jiangmiao/auto-pairs'
 	" TweakPlug 'roxma/nvim-possible-textchangedi'
-	if has('nvim')
-		TweakPlug 'neomake/neomake'
-		TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
-	endif
+	TweakPlug 'neomake/neomake'
 	if !has('nvim')
 		TweakPlug 'roxma/vim-hug-neovim-rpc'
 	endif
+
+	" let g:LanguageClient_serverCommands = {
+    " \ 'php': ['php', '/data/roxma/.local_software/neovim/plugged/nvim-cm-php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php'],
+    " \ }
+	nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+	nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+	nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+	TweakPlug 'autozimu/LanguageClient-neovim'
 	TweakPlug 'roxma/nvim-completion-manager',  {'do': 'npm install'}
+	" TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
