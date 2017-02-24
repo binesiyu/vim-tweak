@@ -131,6 +131,11 @@ func! tweak#plug(plugDir)
 	TweakPlug 'autozimu/LanguageClient-neovim'
 	TweakPlug 'roxma/nvim-completion-manager',  {'do': 'npm install'}
 	" TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
+	if has('nvim')
+		" fuzzy matcher don't work well on vim, has flickering issue
+		let g:cm_matcher = {'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
+		let g:cm_completekeys = "\<Plug>(cm_completefunc)"
+	endif
 
 	TweakPlug 'majutsushi/tagbar'
 	TweakPlug 'scrooloose/nerdtree'
