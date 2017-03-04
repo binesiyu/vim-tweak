@@ -122,15 +122,14 @@ func! tweak#plug(plugDir)
 		TweakPlug 'roxma/vim-hug-neovim-rpc'
 	endif
 
-	" let g:LanguageClient_serverCommands = {
-    " \ 'php': ['php', '/data/roxma/.local_software/neovim/plugged/nvim-cm-php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php'],
-    " \ }
-	nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-	nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-	nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-	TweakPlug 'autozimu/LanguageClient-neovim'
-	TweakPlug 'roxma/nvim-completion-manager',  {'do': 'npm install'}
-	" TweakPlug 'roxma/nvim-cm-php-language-server',  {'do': 'composer install && composer run-script parse-stubs'}
+	" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+	" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+	" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+	Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+	TweakPlug 'roxma/nvim-completion-manager'
+	TweakPlug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+	TweakPlug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+	autocmd FileType php LanguageClientStart
 	" if has('nvim')
 	" 	" fuzzy matcher don't work well on vim, has flickering issue
 	" 	let g:cm_matcher = {'module': 'cm_matchers.fuzzy_matcher', 'case': 'smartcase'}
@@ -277,7 +276,7 @@ func! tweak#bootstrap(...)
 	augroup tweak_help
 		" make help window open verticle right, so that you won't feel that the
 		" file buffer window adjusted when help is opened
-		au BufWinEnter */doc/* if &filetype=='help' | wincmd L | endif
+		au BufWinEnter */doc/* if &filetype=='help' && &modifiable==0 | wincmd L | endif
 	augroup end
 
 	" Always show at least one line above/below the cursor.
@@ -515,6 +514,7 @@ func! tweak#bootstrap(...)
 	" smart tab for auto complete
 	inoremap <expr> <silent> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
 	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<S-TAB>"
+	inoremap <expr> <buffer> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 	set completeopt=menu,menuone,longest
 
