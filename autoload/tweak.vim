@@ -190,6 +190,22 @@ func! tweak#plug(plugDir)
 	TweakPlug 'SirVer/ultisnips'
 	" Snippets are separated from the engine. Add this if you want them:
 	TweakPlug 'honza/vim-snippets'
+	" TweakPlug 'Shougo/neosnippet'
+	" TweakPlug 'Shougo/neosnippet-snippets'
+	" " Plugin key-mappings.
+	" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+	" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	" xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+	" " SuperTab like snippets behavior.
+	" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+	" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+	" " For conceal markers.
+	" if has('conceal')
+	" 	set conceallevel=2 concealcursor=niv
+	" endif
+	" inoremap <silent> <c-k> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
 
 	TweakPlug 'metakirby5/codi.vim'
 
@@ -564,6 +580,9 @@ fun! tweak#nvim_completion_manager()
 	" utils, optional
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'psutil')
 	let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'setproctitle')
+
+	imap <c-g> <Plug>(cm_force_refresh)
+
 endfunc
 
 func! tweak#python_support()
@@ -760,10 +779,32 @@ func! tweak#surround()
 endfunc
 
 func! tweak#ultisnip()
-	let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+	" let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+	" inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
+	" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+	" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+	let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+	let g:UltiSnipsJumpForwardTrigger	= "<Plug>(ultisnips_expand)"
+	let g:UltiSnipsJumpBackwardTrigger	= "<Plug>(ultisnips_backward)"
+	let g:UltiSnipsListSnippets			= "<Plug>(ultisnips_list)"
+    let g:UltiSnipsRemoveSelectModeMappings = 0
+	vnoremap <expr> <Plug>(ultisnip_expand_or_jump_result) g:ulti_expand_or_jump_res?'':"\<Tab>"
+	inoremap <expr> <Plug>(ultisnip_expand_or_jump_result) g:ulti_expand_or_jump_res?'':"\<Tab>"
+	imap <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<C-r>=UltiSnips#ExpandSnippetOrJump()\<cr>\<Plug>(ultisnip_expand_or_jump_result)")
+	xmap <Tab> <Plug>(ultisnips_expand)
+	smap <Tab> <Plug>(ultisnips_expand)
+	autocmd! User UltiSnipsEnterFirstSnippet xmap <Tab> <Plug>(ultisnips_expand)
+	autocmd! User UltiSnipsEnterFirstSnippet smap <Tab> <Plug>(ultisnips_expand)
+
 	inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-	let g:UltiSnipsJumpForwardTrigger="<c-j>"
-	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+	vnoremap <expr> <Plug>(ultisnips_backwards_result) g:ulti_jump_backwards_res?'':"\<S-Tab>"
+	inoremap <expr> <Plug>(ultisnips_backwards_result) g:ulti_jump_backwards_res?'':"\<S-Tab>"
+	imap <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<C-r>=UltiSnips#JumpBackwards()\<cr>\<Plug>(ultisnips_backwards_result)")
+	xmap <S-Tab> <Plug>(ultisnips_backward)
+	smap <S-Tab> <Plug>(ultisnips_backward)
+
 endfunc
 
 " ""
