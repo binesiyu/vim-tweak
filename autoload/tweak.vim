@@ -186,17 +186,10 @@ func! tweak#plug(plugDir)
 	endif
 	TweakPlug 'roxma/vim-tmux-clipboard'
 
-	" Track the engine.
 	TweakPlug 'SirVer/ultisnips'
-	" Snippets are separated from the engine. Add this if you want them:
 	TweakPlug 'honza/vim-snippets'
 	" TweakPlug 'Shougo/neosnippet'
 	" TweakPlug 'Shougo/neosnippet-snippets'
-	" " Plugin key-mappings.
-	" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-	" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	" xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 	" " SuperTab like snippets behavior.
 	" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
@@ -564,6 +557,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'pelodelfuego/vim-swoop'           let g:swoopUseDefaultKeyMap = 0
 	TweakForPlug 'airblade/vim-gitgutter'           let g:gitgutter_map_keys = 0
 	TweakForPlug 'SirVer/ultisnips'                 call tweak#ultisnip()
+	TweakForPlug 'Shougo/neosnippet'                call tweak#neosnippet()
 	TweakForPlug 'roxma/python-support.nvim'		call tweak#python_support()
 	TweakForPlug 'roxma/nvim-completion-manager'    call tweak#nvim_completion_manager()
 
@@ -776,6 +770,14 @@ func! tweak#surround()
 	nmap ds  <Plug>Dsurround
 	nmap cs  <Plug>Csurround
 	xmap s   <Plug>VSurround
+endfunc
+
+func! tweak#neosnippet()
+	imap <expr> <Tab> (pumvisible() ? "\<C-n>" : (neosnippet#mappings#expand_or_jump_impl()!=''?neosnippet#mappings#expand_or_jump_impl():"\<Tab>"))
+	smap <Tab>     <Plug>(neosnippet_expand_or_jump)
+	xmap <Tab>     <Plug>(neosnippet_expand_target)
+	" neosnippet doesn't have jump back key
+	imap <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
 endfunc
 
 func! tweak#ultisnip()
