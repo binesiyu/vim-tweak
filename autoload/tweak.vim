@@ -779,10 +779,8 @@ func! tweak#surround()
 endfunc
 
 func! tweak#ultisnip()
-	" let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
-	" inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-	" let g:UltiSnipsJumpForwardTrigger="<c-j>"
-	" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+	" https://github.com/roxma/nvim-completion-manager/issues/38#issuecomment-284195597
 
 	let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 	let g:UltiSnipsJumpForwardTrigger	= "<Plug>(ultisnips_expand)"
