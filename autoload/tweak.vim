@@ -503,8 +503,8 @@ func! tweak#bootstrap(...)
 	" like emacs mode shell command editing
 	inoremap <C-E> <C-o>$
 	inoremap <C-A> <C-o>^
-	inoremap <C-B> <Left>
-	inoremap <C-F> <Right>
+	inoremap <C-B> <c-o>b
+	inoremap <C-F> <c-o>w
 	inoremap <C-D> <Delete>
 
 	" command line editing
