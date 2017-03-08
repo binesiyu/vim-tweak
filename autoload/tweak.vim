@@ -147,6 +147,7 @@ func! tweak#plug(plugDir)
 	" TweakPlug 'ctrlpvim/ctrlp.vim'
 	TweakPlug 'junegunn/fzf', { 'do': './install --no-key-bindings --no-completion --no-update-rc' } " only install fzf for vim
 	TweakPlug 'junegunn/fzf.vim'
+	TweakPlug 'Shougo/unite.vim'
 	" for the enhanced <Leader>* key
 	TweakPlug 'haya14busa/vim-asterisk'
 	TweakPlug 'haya14busa/incsearch.vim'
@@ -186,10 +187,17 @@ func! tweak#plug(plugDir)
 	endif
 	TweakPlug 'roxma/vim-tmux-clipboard'
 
+	" Ultisnips is way too heavy
 	TweakPlug 'SirVer/ultisnips'
-	TweakPlug 'honza/vim-snippets'
 	" TweakPlug 'Shougo/neosnippet'
 	" TweakPlug 'Shougo/neosnippet-snippets'
+
+	" TweakPlug 'tomtom/tlib_vim'
+	" TweakPlug 'marcweber/vim-addon-mw-utils'
+	" TweakPlug 'garbas/vim-snipmate'
+
+	" optional
+	TweakPlug 'honza/vim-snippets'
 
 	" " SuperTab like snippets behavior.
 	" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
@@ -503,9 +511,11 @@ func! tweak#bootstrap(...)
 	" like emacs mode shell command editing
 	inoremap <C-E> <C-o>$
 	inoremap <C-A> <C-o>^
-	inoremap <C-B> <c-o>b
-	inoremap <C-F> <c-o>w
+	inoremap <C-B> <left>
+	inoremap <C-F> <right>
 	inoremap <C-D> <Delete>
+
+	snoremap ' <c-g>c'
 
 	" command line editing
 	cnoremap <C-A>      <Home>
@@ -521,9 +531,9 @@ func! tweak#bootstrap(...)
 	" <C-E> <End>
 	
 	" smart tab for auto complete
-	inoremap <expr> <silent> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
-	inoremap <expr> <silent> <S-TAB>  pumvisible()?"\<C-p>":"\<S-TAB>"
-	inoremap <expr> <buffer> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+	inoremap <expr> <Tab>  pumvisible()?"\<C-n>":"\<TAB>"
+	inoremap <expr> <S-TAB>  pumvisible()?"\<C-p>":"\<S-TAB>"
+	inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 	set completeopt=menu,menuone,longest
 
@@ -557,6 +567,7 @@ func! tweak#bootstrap(...)
 	TweakForPlug 'pelodelfuego/vim-swoop'           let g:swoopUseDefaultKeyMap = 0
 	TweakForPlug 'airblade/vim-gitgutter'           let g:gitgutter_map_keys = 0
 	TweakForPlug 'SirVer/ultisnips'                 call tweak#ultisnip()
+	TweakForPlug 'garbas/vim-snipmate'              call tweak#snipmate()
 	TweakForPlug 'Shougo/neosnippet'                call tweak#neosnippet()
 	TweakForPlug 'roxma/python-support.nvim'		call tweak#python_support()
 	TweakForPlug 'roxma/nvim-completion-manager'    call tweak#nvim_completion_manager()
@@ -772,12 +783,21 @@ func! tweak#surround()
 	xmap s   <Plug>VSurround
 endfunc
 
+func! tweak#snipmate()
+	let g:snips_no_mappings = 1
+	imap <c-u> <Plug>snipMateNextOrTrigger
+	vmap <c-u> <Plug>snipMateNextOrTrigger
+endfunc
+
 func! tweak#neosnippet()
 	imap <expr> <Tab> (pumvisible() ? "\<C-n>" : (neosnippet#mappings#expand_or_jump_impl()!=''?neosnippet#mappings#expand_or_jump_impl():"\<Tab>"))
 	smap <Tab>     <Plug>(neosnippet_expand_or_jump)
 	xmap <Tab>     <Plug>(neosnippet_expand_target)
 	" neosnippet doesn't have jump back key
 	imap <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
+	inoremap <silent> <c-u> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
+	" expand parameters
+	let g:neosnippet#enable_completed_snippet=1
 endfunc
 
 func! tweak#ultisnip()
@@ -804,7 +824,6 @@ func! tweak#ultisnip()
 
 	" optional
 	inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-
 
 endfunc
 
