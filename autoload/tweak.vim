@@ -188,25 +188,16 @@ func! tweak#plug(plugDir)
 	TweakPlug 'roxma/vim-tmux-clipboard'
 
 	" Ultisnips is way too heavy
-	TweakPlug 'SirVer/ultisnips'
+	" TweakPlug 'SirVer/ultisnips'
 	" TweakPlug 'Shougo/neosnippet'
 	" TweakPlug 'Shougo/neosnippet-snippets'
 
-	" TweakPlug 'tomtom/tlib_vim'
-	" TweakPlug 'marcweber/vim-addon-mw-utils'
-	" TweakPlug 'garbas/vim-snipmate'
+	TweakPlug 'tomtom/tlib_vim'
+	TweakPlug 'marcweber/vim-addon-mw-utils'
+	TweakPlug 'garbas/vim-snipmate'
 
 	" optional
 	TweakPlug 'honza/vim-snippets'
-
-	" " SuperTab like snippets behavior.
-	" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-	" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-	" " For conceal markers.
-	" if has('conceal')
-	" 	set conceallevel=2 concealcursor=niv
-	" endif
-	" inoremap <silent> <c-k> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
 
 	TweakPlug 'metakirby5/codi.vim'
 
@@ -785,46 +776,30 @@ endfunc
 
 func! tweak#snipmate()
 	let g:snips_no_mappings = 1
-	imap <c-u> <Plug>snipMateNextOrTrigger
-	vmap <c-u> <Plug>snipMateNextOrTrigger
+	imap <expr> <c-u> pumvisible() ? "\<c-y>\<Plug>snipMateTrigger" : "\<Plug>snipMateTrigger"
+	vmap <c-u> <Plug>snipMateTrigger
+	imap <expr> <c-j> pumvisible() ? "\<c-y>\<Plug>snipMateNextOrTrigger" : "\<Plug>snipMateNextOrTrigger"
+	vmap <c-j> <Plug>snipMateNextOrTrigger
+	imap <expr> <c-k> pumvisible() ? "\<c-y>\<Plug>snipMateBack" : "\<Plug>snipMateBack"
+	vmap <c-k> <Plug>snipMateBack
 endfunc
 
 func! tweak#neosnippet()
-	imap <expr> <Tab> (pumvisible() ? "\<C-n>" : (neosnippet#mappings#expand_or_jump_impl()!=''?neosnippet#mappings#expand_or_jump_impl():"\<Tab>"))
-	smap <Tab>     <Plug>(neosnippet_expand_or_jump)
-	xmap <Tab>     <Plug>(neosnippet_expand_target)
-	" neosnippet doesn't have jump back key
-	imap <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<S-Tab>")
+	imap <c-j>     <Plug>(neosnippet_expand_or_jump)
+	vmap <c-j>     <Plug>(neosnippet_expand_or_jump)
 	inoremap <silent> <c-u> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
+	vmap <c-u>     <Plug>(neosnippet_expand_target)
 	" expand parameters
 	let g:neosnippet#enable_completed_snippet=1
 endfunc
 
 func! tweak#ultisnip()
-
-	" https://github.com/roxma/nvim-completion-manager/issues/38#issuecomment-284195597
-
 	let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-	let g:UltiSnipsJumpForwardTrigger	= "<Plug>(ultisnips_forward)"
-	let g:UltiSnipsJumpBackwardTrigger	= "<Plug>(ultisnips_backward)"
-	let g:UltiSnipsListSnippets			= "<Plug>(ultisnips_list)"
+	let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+	let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
     let g:UltiSnipsRemoveSelectModeMappings = 0
-
-	vnoremap <expr> <Plug>(ultisnip_expand_or_jump_result) g:ulti_expand_or_jump_res?'':"\<Tab>"
-	inoremap <expr> <Plug>(ultisnip_expand_or_jump_result) g:ulti_expand_or_jump_res?'':"\<Tab>"
-	imap <silent> <expr> <Tab> (pumvisible() ? "\<C-n>" : "\<C-r>=UltiSnips#ExpandSnippetOrJump()\<cr>\<Plug>(ultisnip_expand_or_jump_result)")
-	vmap <Tab> <Plug>(ultisnips_forward)
-	vmap <c-j> <Plug>(ultisnips_forward)
-
-	vnoremap <expr> <Plug>(ultisnips_backwards_result) g:ulti_jump_backwards_res?'':"\<S-Tab>"
-	inoremap <expr> <Plug>(ultisnips_backwards_result) g:ulti_jump_backwards_res?'':"\<S-Tab>"
-	imap <silent> <expr> <S-Tab> (pumvisible() ? "\<C-p>" : "\<C-r>=UltiSnips#JumpBackwards()\<cr>\<Plug>(ultisnips_backwards_result)")
-	vmap <S-Tab> <Plug>(ultisnips_backward)
-	vmap <c-k>   <Plug>(ultisnips_backward)
-
 	" optional
 	inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-
 endfunc
 
 " ""
